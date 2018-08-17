@@ -1,1 +1,13 @@
-﻿
+﻿#lanBPTabs .tab-content {
+    border: 1px solid #dee2e6 !important;
+}
+.sp-v-align {
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(41.5%);
+    -ms-transform: translateY(41.5%);
+    transform: translateY(41.5%);
+}
+.text-bold {
+    font-weight: bold;
+}

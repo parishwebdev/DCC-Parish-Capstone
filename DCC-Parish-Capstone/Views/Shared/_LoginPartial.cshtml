@@ -5,19 +5,29 @@
     {
         @Html.AntiForgeryToken()
 
-        <ul class="nav navbar-nav navbar-right text-white">
+<ul class="nav navbar-nav navbar-right text-white">
+   
+    &nbsp; &nbsp;
 
-            <li>
-                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "! ", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = " nav-link" })
-            </li> &nbsp; &nbsp;
-            <li><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Log off  &nbsp; <i class="fas fa-sign-out-alt"></i></a></li>
-            <li>
-                <a class="nav-link" href="#">Notification Center <i class="fas fa-bell"></i></a>
-            </li>
-            <li>
-                <a class="nav-link" href="#">Badges <i class="fas fa-id-badge"></i></a>
-            </li>
-        </ul>
+    <li class="mt-1"> 
+        <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle nav-link" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Web Developer Menu</button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <a class="dropdown-item"  href="#"> User Portal <span><i class="far fa-user-circle sp-v-align float-right"></i></span></a> 
+                <a class="dropdown-item" href="#">Notifications <span><i class="fas fa-bell sp-v-align float-right"></i></span></a>
+                <a class="dropdown-item" href="#">Badges <span><i class="far fa-id-badge sp-v-align float-right"></i></span></a>
+            </div>
+        </div>
+
+    </li>
+
+    <li>
+        @Html.ActionLink("Hello " + User.Identity.GetUserName() + "! ", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = " nav-link" })
+    </li>
+
+    <li><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Log off  &nbsp; <i class="fas fa-sign-out-alt"></i></a></li>
+
+</ul>
     }
 }
 else

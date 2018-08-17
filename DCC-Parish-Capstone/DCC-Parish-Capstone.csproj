@@ -196,6 +196,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LanguagesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -203,6 +204,10 @@
     <Compile Include="Migrations\201808162235164_init mig.cs" />
     <Compile Include="Migrations\201808162235164_init mig.Designer.cs">
       <DependentUpon>201808162235164_init mig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808162341212_Seed Db.cs" />
+    <Compile Include="Migrations\201808162341212_Seed Db.Designer.cs">
+      <DependentUpon>201808162341212_Seed Db.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -218,6 +223,7 @@
     <Compile Include="Models\Rank.cs" />
     <Compile Include="Models\Subscription.cs" />
     <Compile Include="Models\UserBadge.cs" />
+    <Compile Include="Models\ViewModels\LanguageBestPracticeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -281,10 +287,14 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Languages\Create.cshtml" />
+    <Content Include="Views\Languages\Delete.cshtml" />
+    <Content Include="Views\Languages\Details.cshtml" />
+    <Content Include="Views\Languages\Edit.cshtml" />
+    <Content Include="Views\Languages\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -302,6 +312,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201808162235164_init mig.resx">
       <DependentUpon>201808162235164_init mig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808162341212_Seed Db.resx">
+      <DependentUpon>201808162341212_Seed Db.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
