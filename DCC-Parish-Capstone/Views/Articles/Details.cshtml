@@ -1,0 +1,104 @@
+﻿@model DCC_Parish_Capstone.Models.ViewModels.ArticleUserCommentViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<link href="~/Content/HighlightCss/dark.css" rel="stylesheet" />
+<script src="~/Scripts/highlight.pack.js"></script>
+
+<h2>Details</h2>
+
+<div>
+    <h4>Article</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Article.BestPractice.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Article.BestPractice.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Article.Language.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Article.Language.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Article.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Article.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Article.Body)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Article.Body)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Article.FeaturedCode)
+        </dt>
+
+        <dd>
+            <pre>
+            <code class="@Html.DisplayNameFor(model => model.Article.Language.Name)">
+                    @Html.DisplayFor(model => model.Article.FeaturedCode)
+                </code>
+            </pre>
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Article.UpVotes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Article.UpVotes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Article.DownVotes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Article.DownVotes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Article.DateCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Article.DateCreated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ArticleAuthor.Nickname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArticleAuthor.Nickname)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Article.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+
+@section scripts {
+
+    <script src="~/Scripts/HighlightFunctions.js"></script>
+
+}

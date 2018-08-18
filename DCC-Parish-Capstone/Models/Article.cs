@@ -14,10 +14,15 @@ namespace DCC_Parish_Capstone.Models
 
         public string Title { get; set; }
 
+        [DataType(DataType.MultilineText)]
+        public string Body { get; set; }
+
+        [DataType(DataType.MultilineText)]
+        [Display(Name = "Featured Code")]
         public string FeaturedCode { get; set; }
 
         [ForeignKey("Language")]
-        [Display(Name = "Article Language")]
+        [Display(Name = "Language")]
         public int LanguageId { get; set; }
         public Language Language { get; set; }
 
@@ -27,11 +32,14 @@ namespace DCC_Parish_Capstone.Models
         public BestPractice BestPractice { get; set; }
 
         /* ~~~ make seperate if time later v (both) ~~~ */
+        [Display(Name = "Up Votes")]
         public int UpVotes { get; set; }
 
+        [Display(Name = "Down Votes")]
         public int DownVotes { get; set; }
         /* ~~~ ^ (both) ~~~ */
 
+        [Display(Name = "Date Created")]
         public DateTime DateCreated { get; set; }
 
         public string AspNetUserId { get; set; }

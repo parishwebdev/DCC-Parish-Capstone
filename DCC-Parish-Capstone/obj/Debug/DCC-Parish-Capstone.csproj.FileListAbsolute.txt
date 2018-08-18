@@ -121,3 +121,5 @@ C:\Users\Matthew_2\source\repos\DCC\Parish-Capstone\DCC-Parish-Capstone\DCC-Pari
 C:\Users\Matthew_2\source\repos\DCC\Parish-Capstone\DCC-Parish-Capstone\DCC-Parish-Capstone\obj\Debug\DCC_Parish_Capstone.Migrations.initmig.resources
 C:\Users\Matthew_2\source\repos\DCC\Parish-Capstone\DCC-Parish-Capstone\DCC-Parish-Capstone\obj\Debug\DCC-Parish-Capstone.csproj.GenerateResource.cache
 C:\Users\Matthew_2\source\repos\DCC\Parish-Capstone\DCC-Parish-Capstone\DCC-Parish-Capstone\obj\Debug\DCC_Parish_Capstone.Migrations.SeedDb.resources
+C:\Users\Matthew_2\source\repos\DCC\Parish-Capstone\DCC-Parish-Capstone\DCC-Parish-Capstone\obj\Debug\DCC_Parish_Capstone.Migrations.AdjustedArticle.resources
+C:\Users\Matthew_2\source\repos\DCC\Parish-Capstone\DCC-Parish-Capstone\DCC-Parish-Capstone\obj\Debug\DCC_Parish_Capstone.Migrations.AddedMutilinetextattributetobodyandfeaturedcode.resources

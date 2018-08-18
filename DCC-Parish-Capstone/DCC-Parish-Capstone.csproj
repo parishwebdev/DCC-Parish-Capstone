@@ -195,6 +195,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ArticlesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LanguagesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -208,6 +209,14 @@
     <Compile Include="Migrations\201808162341212_Seed Db.cs" />
     <Compile Include="Migrations\201808162341212_Seed Db.Designer.cs">
       <DependentUpon>201808162341212_Seed Db.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808181828135_Adjusted Article.cs" />
+    <Compile Include="Migrations\201808181828135_Adjusted Article.Designer.cs">
+      <DependentUpon>201808181828135_Adjusted Article.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808181855536_Added Mutilinetext attributeto body and featured code.cs" />
+    <Compile Include="Migrations\201808181855536_Added Mutilinetext attributeto body and featured code.Designer.cs">
+      <DependentUpon>201808181855536_Added Mutilinetext attributeto body and featured code.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -223,6 +232,7 @@
     <Compile Include="Models\Rank.cs" />
     <Compile Include="Models\Subscription.cs" />
     <Compile Include="Models\UserBadge.cs" />
+    <Compile Include="Models\ViewModels\ArticleUserCommentViewModel.cs" />
     <Compile Include="Models\ViewModels\LanguageBestPracticeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -233,6 +243,89 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bs-journal-theme.css" />
+    <Content Include="Content\codemirror.css" />
+    <Content Include="Content\HighlightCss\agate.css" />
+    <Content Include="Content\HighlightCss\androidstudio.css" />
+    <Content Include="Content\HighlightCss\arduino-light.css" />
+    <Content Include="Content\HighlightCss\arta.css" />
+    <Content Include="Content\HighlightCss\ascetic.css" />
+    <Content Include="Content\HighlightCss\atelier-cave-dark.css" />
+    <Content Include="Content\HighlightCss\atelier-cave-light.css" />
+    <Content Include="Content\HighlightCss\atelier-dune-dark.css" />
+    <Content Include="Content\HighlightCss\atelier-dune-light.css" />
+    <Content Include="Content\HighlightCss\atelier-estuary-dark.css" />
+    <Content Include="Content\HighlightCss\atelier-estuary-light.css" />
+    <Content Include="Content\HighlightCss\atelier-forest-dark.css" />
+    <Content Include="Content\HighlightCss\atelier-forest-light.css" />
+    <Content Include="Content\HighlightCss\atelier-heath-dark.css" />
+    <Content Include="Content\HighlightCss\atelier-heath-light.css" />
+    <Content Include="Content\HighlightCss\atelier-lakeside-dark.css" />
+    <Content Include="Content\HighlightCss\atelier-lakeside-light.css" />
+    <Content Include="Content\HighlightCss\atelier-plateau-dark.css" />
+    <Content Include="Content\HighlightCss\atelier-plateau-light.css" />
+    <Content Include="Content\HighlightCss\atelier-savanna-dark.css" />
+    <Content Include="Content\HighlightCss\atelier-savanna-light.css" />
+    <Content Include="Content\HighlightCss\atelier-seaside-dark.css" />
+    <Content Include="Content\HighlightCss\atelier-seaside-light.css" />
+    <Content Include="Content\HighlightCss\atelier-sulphurpool-dark.css" />
+    <Content Include="Content\HighlightCss\atelier-sulphurpool-light.css" />
+    <Content Include="Content\HighlightCss\atom-one-dark.css" />
+    <Content Include="Content\HighlightCss\atom-one-light.css" />
+    <Content Include="Content\HighlightCss\brown-paper.css" />
+    <Content Include="Content\HighlightCss\brown-papersq.png" />
+    <Content Include="Content\HighlightCss\codepen-embed.css" />
+    <Content Include="Content\HighlightCss\color-brewer.css" />
+    <Content Include="Content\HighlightCss\darcula.css" />
+    <Content Include="Content\HighlightCss\dark.css" />
+    <Content Include="Content\HighlightCss\darkula.css" />
+    <Content Include="Content\HighlightCss\default.css" />
+    <Content Include="Content\HighlightCss\docco.css" />
+    <Content Include="Content\HighlightCss\dracula.css" />
+    <Content Include="Content\HighlightCss\far.css" />
+    <Content Include="Content\HighlightCss\foundation.css" />
+    <Content Include="Content\HighlightCss\github-gist.css" />
+    <Content Include="Content\HighlightCss\github.css" />
+    <Content Include="Content\HighlightCss\googlecode.css" />
+    <Content Include="Content\HighlightCss\grayscale.css" />
+    <Content Include="Content\HighlightCss\gruvbox-dark.css" />
+    <Content Include="Content\HighlightCss\gruvbox-light.css" />
+    <Content Include="Content\HighlightCss\hopscotch.css" />
+    <Content Include="Content\HighlightCss\hybrid.css" />
+    <Content Include="Content\HighlightCss\idea.css" />
+    <Content Include="Content\HighlightCss\ir-black.css" />
+    <Content Include="Content\HighlightCss\kimbie.dark.css" />
+    <Content Include="Content\HighlightCss\kimbie.light.css" />
+    <Content Include="Content\HighlightCss\magula.css" />
+    <Content Include="Content\HighlightCss\mono-blue.css" />
+    <Content Include="Content\HighlightCss\monokai-sublime.css" />
+    <Content Include="Content\HighlightCss\monokai.css" />
+    <Content Include="Content\HighlightCss\obsidian.css" />
+    <Content Include="Content\HighlightCss\ocean.css" />
+    <Content Include="Content\HighlightCss\paraiso-dark.css" />
+    <Content Include="Content\HighlightCss\paraiso-light.css" />
+    <Content Include="Content\HighlightCss\pojoaque.css" />
+    <Content Include="Content\HighlightCss\pojoaque.jpg" />
+    <Content Include="Content\HighlightCss\purebasic.css" />
+    <Content Include="Content\HighlightCss\qtcreator_dark.css" />
+    <Content Include="Content\HighlightCss\qtcreator_light.css" />
+    <Content Include="Content\HighlightCss\railscasts.css" />
+    <Content Include="Content\HighlightCss\rainbow.css" />
+    <Content Include="Content\HighlightCss\routeros.css" />
+    <Content Include="Content\HighlightCss\school-book.css" />
+    <Content Include="Content\HighlightCss\school-book.png" />
+    <Content Include="Content\HighlightCss\solarized-dark.css" />
+    <Content Include="Content\HighlightCss\solarized-light.css" />
+    <Content Include="Content\HighlightCss\sunburst.css" />
+    <Content Include="Content\HighlightCss\tomorrow-night-blue.css" />
+    <Content Include="Content\HighlightCss\tomorrow-night-bright.css" />
+    <Content Include="Content\HighlightCss\tomorrow-night-eighties.css" />
+    <Content Include="Content\HighlightCss\tomorrow-night.css" />
+    <Content Include="Content\HighlightCss\tomorrow.css" />
+    <Content Include="Content\HighlightCss\vs.css" />
+    <Content Include="Content\HighlightCss\vs2015.css" />
+    <Content Include="Content\HighlightCss\xcode.css" />
+    <Content Include="Content\HighlightCss\xt256.css" />
+    <Content Include="Content\HighlightCss\zenburn.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -243,6 +336,9 @@
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\codemirror.js" />
+    <Content Include="Scripts\CodeMirrorFunctions.js" />
+    <Content Include="Scripts\highlight.pack.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -253,6 +349,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\HighlightFunctions.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -292,6 +389,11 @@
     <Content Include="Views\Languages\Details.cshtml" />
     <Content Include="Views\Languages\Edit.cshtml" />
     <Content Include="Views\Languages\Index.cshtml" />
+    <Content Include="Views\Articles\Create.cshtml" />
+    <Content Include="Views\Articles\Delete.cshtml" />
+    <Content Include="Views\Articles\Details.cshtml" />
+    <Content Include="Views\Articles\Edit.cshtml" />
+    <Content Include="Views\Articles\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -315,6 +417,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808162341212_Seed Db.resx">
       <DependentUpon>201808162341212_Seed Db.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808181828135_Adjusted Article.resx">
+      <DependentUpon>201808181828135_Adjusted Article.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808181855536_Added Mutilinetext attributeto body and featured code.resx">
+      <DependentUpon>201808181855536_Added Mutilinetext attributeto body and featured code.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

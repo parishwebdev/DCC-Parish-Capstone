@@ -11,6 +11,7 @@ namespace DCC_Parish_Capstone.Models
         [Key]
         public int Id { get; set; }
 
+        [Display(Name = "Best Practice")]
         public string Name { get; set; }
 
         //potientallly type, but prob not
