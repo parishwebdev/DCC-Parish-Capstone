@@ -34,8 +34,13 @@ namespace DCC_Parish_Capstone.Controllers
             ArticleUserCommentViewModel aUCVM = new ArticleUserCommentViewModel();
              
             aUCVM.Article = db.Articles.Include(a => a.BestPractice).Include(a => a.Language).Single(a => a.Id == id);
-            var currentUserId = aUCVM.Article.AspNetUserId;
-            aUCVM.ArticleAuthor = db.Users.Where(u => u.Id == currentUserId).Single();
+            var articleUserId = aUCVM.Article.AspNetUserId;
+            aUCVM.ArticleAuthor = db.Users.Where(u => u.Id == articleUserId).Single();
+
+
+            aUCVM.Comments = db.Comments.Where(c => c.ArticleId == aUCVM.Article.Id);
+            SetCommentAuthors(aUCVM.Comments);
+
 
             if (aUCVM.Article == null)
             {
@@ -44,6 +49,18 @@ namespace DCC_Parish_Capstone.Controllers
 
             return View(aUCVM);
         }
+
+        private void SetCommentAuthors(IEnumerable<Comment> comments)
+        {
+            int i = 0;
+            foreach (var item in comments)
+            {
+                var commentUserId = item.AspNetUserId;
+                comments.ElementAt(i).CommentAuthor = db.Users.Where(u => u.Id == commentUserId).Single(); 
+                i++;
+            }
+        }
+
 
         // GET: Articles/Create
         public ActionResult Create()

@@ -11,7 +11,7 @@ namespace DCC_Parish_Capstone.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
-         
+        [Display(Name = "User Name")]
         public string Nickname { get; set; }
 
         public int Points { get; set; }

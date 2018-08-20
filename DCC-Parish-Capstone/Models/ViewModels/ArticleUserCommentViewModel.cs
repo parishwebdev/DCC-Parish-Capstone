@@ -10,6 +10,7 @@ namespace DCC_Parish_Capstone.Models.ViewModels
         public Article Article { get; set; }
         public ApplicationUser ArticleAuthor { get; set; }
 
-        //Comments Later
+        public Comment Comment { get; set; }
+        public IEnumerable<Comment> Comments { get; set; }
     }
 }

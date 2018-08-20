@@ -7,98 +7,221 @@
 <link href="~/Content/HighlightCss/dark.css" rel="stylesheet" />
 <script src="~/Scripts/highlight.pack.js"></script>
 
-<h2>Details</h2>
+<h2 class="mt-2">
+    <span> 
+        @Html.DisplayFor(model => model.Article.Title)
+    </span>
+</h2>
 
 <div>
-    <h4>Article</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Article.BestPractice.Name)
-        </dt>
 
-        <dd>
+    <div class="row">
+        <div class="col-md-8 ">
+            <span class="text-muted text-size-95">
+                @Html.DisplayNameFor(model => model.Article.DateCreated): @Html.DisplayFor(model => model.Article.DateCreated) |
+                Author: @Html.DisplayFor(model => model.ArticleAuthor.Nickname)
+            </span>
+        </div>
+    </div>
+
+    <div class="row my-3">
+        <div class="col-md-4">
+            <h5>@Html.DisplayNameFor(model => model.Article.BestPractice.Name)</h5>
+
             @Html.DisplayFor(model => model.Article.BestPractice.Name)
-        </dd>
+        </div>
+        <div class="col-md-4">
+            <h5> @Html.DisplayNameFor(model => model.Article.Language.Name)</h5>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Article.Language.Name)
-        </dt>
-
-        <dd>
             @Html.DisplayFor(model => model.Article.Language.Name)
-        </dd>
+        </div>
+    </div>
+    <dl class="dl-horizontal ">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Article.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Article.Title)
-        </dd>
-
-        <dt>
+        <dt class="mt-3">
             @Html.DisplayNameFor(model => model.Article.Body)
         </dt>
 
-        <dd>
+        <dd class="mb-3">
             @Html.DisplayFor(model => model.Article.Body)
         </dd>
 
-        <dt>
+        <dt class="mt-3">
             @Html.DisplayNameFor(model => model.Article.FeaturedCode)
         </dt>
 
-        <dd>
-            <pre>
-            <code class="@Html.DisplayNameFor(model => model.Article.Language.Name)">
-                    @Html.DisplayFor(model => model.Article.FeaturedCode)
-                </code>
-            </pre>
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Article.UpVotes)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Article.UpVotes)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Article.DownVotes)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Article.DownVotes)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Article.DateCreated)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Article.DateCreated)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ArticleAuthor.Nickname)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ArticleAuthor.Nickname)
+        <dd  class="mb-3">
+            <pre><code class="@Html.DisplayNameFor(model => model.Article.Language.Name)">@Html.DisplayFor(model => model.Article.FeaturedCode) </code></pre>
         </dd>
 
     </dl>
+
+    <div class="row mt-2 mb-4">
+        <div class="col-md-12">
+            <h6>Vote(s)</h6>
+        </div>
+
+        <div class="col-md-3">
+            <a href="#"  class="btn btn-outline-primary" >
+                <i class="fas fa-arrow-alt-circle-up"></i>  
+                <span class="badge badge-primary"> @Html.DisplayFor(model => model.Article.UpVotes) </span>
+            </a>
+         
+            <a href="#"  class="btn btn-outline-primary">
+                <i class="fas fa-arrow-alt-circle-down"></i>  
+                <span class="badge badge-primary"> @Html.DisplayFor(model => model.Article.DownVotes)</span> 
+            </a>
+        </div>
+    </div>
+
+
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Article.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
 
+<!-- Comments -->
 
-@section scripts {
+@using (Html.BeginForm("Create","Comments",FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
 
-    <script src="~/Scripts/HighlightFunctions.js"></script>
+<div class="form-horizontal">
+    <h4>Comment</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
+    <div class="form-group">
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Comment.Body, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Comment.Body, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    @Html.Hidden("ArticleId", Model.Article.Id)
+    @Html.Hidden("ParentId", 0)
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Comment" class="btn btn-outline-primary" />
+        </div>
+    </div>
+</div>
 }
+
+
+<ul class="list-group">
+
+
+
+    @foreach (var item in Model.Comments.Where(c => c.ParentId == 0))
+    {
+    <li class="list-group-item row" style="display: inherit !important;">
+        <div class="col-md-3">
+            <h5>@Html.DisplayNameFor(model => model.Comment.CommentAuthor.Nickname)</h5>
+            <p>@Html.DisplayFor(modelItem => item.CommentAuthor.Nickname) </p>
+        </div>
+
+        <div class="col-md-6">
+            <h5> @Html.DisplayNameFor(model => model.Comment.Body)</h5>
+            <p> @Html.DisplayFor(modelItem => item.Body)</p>
+        </div>
+
+        <div class="col-md-3">
+            <h5> @Html.DisplayNameFor(model => model.Comment.DateCreated)</h5>
+            <p> @Html.DisplayFor(modelItem => item.DateCreated) </p>
+        </div>
+
+
+        <button class="btn btn-primary mx-2" type="button" data-toggle="collapse" data-target="#submitReply-@Html.DisplayFor(modelItem => item.Id)" aria-expanded="false" aria-controls="submitReply-@Html.DisplayFor(modelItem => item.Id)">
+            Reply
+        </button>
+
+        <button class="btn btn-primary mx-2" type="button" data-toggle="collapse" data-target="#viewReplys-@Html.DisplayFor(modelItem => item.Id)" aria-expanded="false" aria-controls="viewReplys-@Html.DisplayFor(modelItem => item.Id)">
+            View Replies  <span class="badge badge-light"> @Model.Comments.Where(c => c.ParentId == item.Id).Count() </span>
+        </button>
+
+
+        <div class="collapse col-md-12 mt-2" id="submitReply-@Html.DisplayFor(modelItem => item.Id)">
+            <div class="card card-body">
+                <div class="form-horizontal col-md-12">
+                    @using (Html.BeginForm("Create", "Comments", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+
+
+                        <h4>Reply</h4>
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="form-group">
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Comment.Body, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Comment.Body, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        @Html.Hidden("ArticleId", Model.Article.Id)
+
+                        @Html.Hidden("ParentId", item.Id)
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Reply" class="btn btn-outline-primary" />
+                            </div>
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="collapse col-md-12 mt-2" id="viewReplys-@Html.DisplayFor(modelItem => item.Id)">
+            <div class="card card-body">
+
+                <ul class="list-group col-md-11 mx-auto">
+                    @foreach (var subitem in Model.Comments.Where(c => c.ParentId == item.Id))
+                    {
+                        <li class="list-group-item row" style="display: inherit !important;">
+                            <div class="col-md-3">
+                                <h5>@Html.DisplayNameFor(model => model.Comment.CommentAuthor.Nickname)</h5>
+                                <p>@Html.DisplayFor(modelItem => subitem.CommentAuthor.Nickname) </p>
+                            </div>
+
+                            <div class="col-md-6">
+                                <h5> @Html.DisplayNameFor(model => model.Comment.Body)</h5>
+                                <p> @Html.DisplayFor(modelItem => subitem.Body)</p>
+                            </div>
+
+                            <div class="col-md-3">
+                                <h5> @Html.DisplayNameFor(model => model.Comment.DateCreated)</h5>
+                                <p> @Html.DisplayFor(modelItem => subitem.DateCreated) </p>
+                            </div>
+
+                        </li>
+                    }
+                </ul>
+
+
+            </div>
+        </div>
+
+
+
+
+
+    </li>
+        }
+
+
+    </ul>
+
+ <!-- /Comments -->
+
+
+
+  @section scripts {
+      <script src="~/Scripts/HighlightFunctions.js"></script>
+   }

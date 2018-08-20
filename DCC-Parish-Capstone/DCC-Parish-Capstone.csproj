@@ -196,6 +196,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArticlesController.cs" />
+    <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LanguagesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -217,6 +218,10 @@
     <Compile Include="Migrations\201808181855536_Added Mutilinetext attributeto body and featured code.cs" />
     <Compile Include="Migrations\201808181855536_Added Mutilinetext attributeto body and featured code.Designer.cs">
       <DependentUpon>201808181855536_Added Mutilinetext attributeto body and featured code.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808192105426_Fourth Mig.cs" />
+    <Compile Include="Migrations\201808192105426_Fourth Mig.Designer.cs">
+      <DependentUpon>201808192105426_Fourth Mig.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -394,6 +399,11 @@
     <Content Include="Views\Articles\Details.cshtml" />
     <Content Include="Views\Articles\Edit.cshtml" />
     <Content Include="Views\Articles\Index.cshtml" />
+    <Content Include="Views\Comments\Create.cshtml" />
+    <Content Include="Views\Comments\Delete.cshtml" />
+    <Content Include="Views\Comments\Details.cshtml" />
+    <Content Include="Views\Comments\Edit.cshtml" />
+    <Content Include="Views\Comments\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -423,6 +433,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808181855536_Added Mutilinetext attributeto body and featured code.resx">
       <DependentUpon>201808181855536_Added Mutilinetext attributeto body and featured code.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808192105426_Fourth Mig.resx">
+      <DependentUpon>201808192105426_Fourth Mig.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

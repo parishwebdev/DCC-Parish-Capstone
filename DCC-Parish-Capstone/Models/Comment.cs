@@ -13,9 +13,13 @@ namespace DCC_Parish_Capstone.Models
         public int Id { get; set; }
 
         public string AspNetUserId { get; set; }
+        public ApplicationUser CommentAuthor { get; set; }
 
+        
+        [DataType(DataType.MultilineText)]
         public string Body { get; set; }
 
+        [Display(Name = "Date Created")]
         public DateTime DateCreated { get; set; }
 
         public int ParentId { get; set; }
