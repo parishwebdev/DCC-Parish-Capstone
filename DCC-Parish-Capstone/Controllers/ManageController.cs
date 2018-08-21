@@ -7,12 +7,14 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using DCC_Parish_Capstone.Models;
+using System.Data.Entity;
 
 namespace DCC_Parish_Capstone.Controllers
 {
     [Authorize]
     public class ManageController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -384,6 +386,22 @@ namespace DCC_Parish_Capstone.Controllers
             Error
         }
 
+        #endregion
+
+#region WebDevUserCode 
+        public ActionResult UserPortal()
+        {
+
+            var userId = User.Identity.GetUserId();
+            var loggedInUser = db.Users.Include(u => u.Rank).Where(u => u.Id == userId).Single(); //.Include(u => u.Rank);
+            
+
+            return View(loggedInUser);
+        }
 #endregion
+
+
+
     }
+     
 }

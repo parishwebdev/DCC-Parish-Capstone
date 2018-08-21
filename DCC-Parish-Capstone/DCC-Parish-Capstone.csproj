@@ -243,6 +243,7 @@
     <Compile Include="Models\UserBadge.cs" />
     <Compile Include="Models\ViewModels\ArticleUserCommentViewModel.cs" />
     <Compile Include="Models\ViewModels\LanguageBestPracticeViewModel.cs" />
+    <Compile Include="Models\ViewModels\UserPortalViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -412,6 +413,7 @@
     <Content Include="Views\Articles\ArticlesByLanguageandBestPractice.cshtml" />
     <Content Include="Views\Articles\ArticlesByLanguage.cshtml" />
     <Content Include="Views\Languages\IndexWithBestPractices.cshtml" />
+    <Content Include="Views\Manage\UserPortal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

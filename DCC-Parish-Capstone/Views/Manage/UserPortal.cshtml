@@ -1,0 +1,25 @@
+﻿@model DCC_Parish_Capstone.Models.ApplicationUser
+@{
+    ViewBag.Title = "UserPortal";
+}
+
+<h2>User Portal</h2>
+
+<div class="row mt-3">
+    <div class="col-md-4">
+        <div class="curveGreyBorder">
+
+            <span class="text-dark text-bold"> @Html.DisplayNameFor(model => model.Nickname) </span>
+            <p>@Html.DisplayFor(model => model.Nickname) </p>
+
+            <span class="text-dark text-bold">@Html.DisplayNameFor(model => model.Rank.Name)</span>
+            <p> @Html.DisplayFor(model => model.Rank.Name) </p>
+
+            <span class="text-dark text-bold">@Html.DisplayNameFor(model => model.Points)</span>
+            <p> @Html.DisplayFor(model => model.Points) </p>
+        </div>
+        <div class="col-md-8">
+
+        </div>
+    </div>
+</div>

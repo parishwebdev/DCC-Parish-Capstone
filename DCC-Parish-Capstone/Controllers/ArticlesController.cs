@@ -76,6 +76,23 @@ namespace DCC_Parish_Capstone.Controllers
         }
 
 
+        public ActionResult UpvoteArticle(int articleId)
+        {
+            
+            Article article = db.Articles.Find(articleId);
+            article.UpVotes += 1;
+            db.SaveChanges();
+             
+            return RedirectToAction("Details", new { id = article.Id });
+        }
+        public ActionResult DownvoteArticle(int articleId)
+        {
+            Article article = db.Articles.Find(articleId);
+            article.DownVotes += 1;
+            db.SaveChanges();
+            return RedirectToAction("Details", new { id = article.Id });
+        }
+
         // GET: Articles/Create
         public ActionResult Create()
         {
