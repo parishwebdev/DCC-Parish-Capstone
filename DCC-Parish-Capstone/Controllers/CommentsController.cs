@@ -125,14 +125,13 @@ namespace DCC_Parish_Capstone.Controllers
         }
 
         // POST: Comments/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpGet]
+        public ActionResult DeleteConfirmed(int id, int articleid)
         {
             Comment comment = db.Comments.Find(id);
             db.Comments.Remove(comment);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Articles", new { id = articleid });
         }
 
         protected override void Dispose(bool disposing)

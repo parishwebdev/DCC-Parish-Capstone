@@ -1,5 +1,5 @@
 ﻿@model DCC_Parish_Capstone.Models.ViewModels.ArticleUserCommentViewModel
-
+@using Microsoft.AspNet.Identity
 @{
     ViewBag.Title = "Details";
 }
@@ -7,12 +7,20 @@
 <link href="~/Content/HighlightCss/dark.css" rel="stylesheet" />
 <script src="~/Scripts/highlight.pack.js"></script>
 
-<h2 class="mt-2">
-    <span> 
-        @Html.DisplayFor(model => model.Article.Title)
-    </span>
-</h2>
+<div class="row">
+    <h2 class="mt-2 col-md-10">
+        <span>
+            @Html.DisplayFor(model => model.Article.Title)
+        </span>
+    </h2>
+    @if (Model.Article.ArticleAuthor.Id == User.Identity.GetUserId())
+    {
 
+        <div class="col-md-2">
+            <a href="@Url.Action("Edit", "Articles", new { id = Model.Article.Id })" class="btn btn-outline-primary btn-sm mt-3">Edit Article <i class="fas fa-edit"></i></a>
+        </div>
+    }
+</div>
 <div>
     <hr />
 
@@ -51,7 +59,7 @@
             @Html.DisplayNameFor(model => model.Article.FeaturedCode)
         </dt>
 
-        <dd  class="mb-3">
+        <dd class="mb-3">
             <pre><code class="@Html.DisplayNameFor(model => model.Article.Language.Name)">@Html.DisplayFor(model => model.Article.FeaturedCode) </code></pre>
         </dd>
 
@@ -63,52 +71,49 @@
         </div>
 
         <div class="col-md-3">
-            <a href="#"  class="btn btn-outline-primary" >
-                <i class="fas fa-arrow-alt-circle-up"></i>  
+            <a href="#" class="btn btn-outline-primary">
+                <i class="fas fa-arrow-alt-circle-up"></i>
                 <span class="badge badge-primary"> @Html.DisplayFor(model => model.Article.UpVotes) </span>
             </a>
-         
-            <a href="#"  class="btn btn-outline-primary">
-                <i class="fas fa-arrow-alt-circle-down"></i>  
-                <span class="badge badge-primary"> @Html.DisplayFor(model => model.Article.DownVotes)</span> 
+
+            <a href="#" class="btn btn-outline-primary">
+                <i class="fas fa-arrow-alt-circle-down"></i>
+                <span class="badge badge-primary"> @Html.DisplayFor(model => model.Article.DownVotes)</span>
             </a>
         </div>
     </div>
 
 
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Article.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
 
+ 
 <!-- Comments -->
 
-@using (Html.BeginForm("Create","Comments",FormMethod.Post))
+@using (Html.BeginForm("Create", "Comments", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <h4>Comment</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        <h4>Comment</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <div class="form-group">
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Comment.Body, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Comment.Body, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Comment.Body, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Comment.Body, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @Html.Hidden("ArticleId", Model.Article.Id)
+        @Html.Hidden("ParentId", 0)
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Comment" class="btn btn-outline-primary" />
+            </div>
         </div>
     </div>
-
-    @Html.Hidden("ArticleId", Model.Article.Id)
-    @Html.Hidden("ParentId", 0)
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Comment" class="btn btn-outline-primary" />
-        </div>
-    </div>
-</div>
 }
 
 
@@ -118,110 +123,120 @@
 
     @foreach (var item in Model.Comments.Where(c => c.ParentId == 0))
     {
-    <li class="list-group-item row" style="display: inherit !important;">
-        <div class="col-md-3">
-            <h5>@Html.DisplayNameFor(model => model.Comment.CommentAuthor.Nickname)</h5>
-            <p>@Html.DisplayFor(modelItem => item.CommentAuthor.Nickname) </p>
-        </div>
+        <li class="list-group-item row" style="display: inherit !important;">
+            <div class="col-md-3">
+                <h5>@Html.DisplayNameFor(model => model.Comment.CommentAuthor.Nickname)</h5>
+                <p>@Html.DisplayFor(modelItem => item.CommentAuthor.Nickname) </p>
+            </div>
 
-        <div class="col-md-6">
-            <h5> @Html.DisplayNameFor(model => model.Comment.Body)</h5>
-            <p> @Html.DisplayFor(modelItem => item.Body)</p>
-        </div>
+            <div class="col-md-5">
+                <h5> @Html.DisplayNameFor(model => model.Comment.Body)</h5>
+                <p> @Html.DisplayFor(modelItem => item.Body)</p>
+            </div>
 
-        <div class="col-md-3">
-            <h5> @Html.DisplayNameFor(model => model.Comment.DateCreated)</h5>
-            <p> @Html.DisplayFor(modelItem => item.DateCreated) </p>
-        </div>
+            <div class="col-md-3">
+                <h5> @Html.DisplayNameFor(model => model.Comment.DateCreated)</h5>
+                <p> @Html.DisplayFor(modelItem => item.DateCreated) </p>
+            </div>
+            <div class="col-md-1">
+                @if (item.CommentAuthor.Id == User.Identity.GetUserId())
+                {
+                    <a href="@Url.Action("DeleteConfirmed", "Comments", new { id = item.Id,  articleid =  Model.Article.Id})" class="btn btn-outline-primary btn-sm"> <i class="fas fa-trash-alt"></i></a>
+                }
+            </div>
 
+            <button class="btn btn-primary mx-2" type="button" data-toggle="collapse" data-target="#submitReply-@Html.DisplayFor(modelItem => item.Id)" aria-expanded="false" aria-controls="submitReply-@Html.DisplayFor(modelItem => item.Id)">
+                Reply
+            </button>
 
-        <button class="btn btn-primary mx-2" type="button" data-toggle="collapse" data-target="#submitReply-@Html.DisplayFor(modelItem => item.Id)" aria-expanded="false" aria-controls="submitReply-@Html.DisplayFor(modelItem => item.Id)">
-            Reply
-        </button>
-
-        <button class="btn btn-primary mx-2" type="button" data-toggle="collapse" data-target="#viewReplys-@Html.DisplayFor(modelItem => item.Id)" aria-expanded="false" aria-controls="viewReplys-@Html.DisplayFor(modelItem => item.Id)">
-            View Replies  <span class="badge badge-light"> @Model.Comments.Where(c => c.ParentId == item.Id).Count() </span>
-        </button>
-
-
-        <div class="collapse col-md-12 mt-2" id="submitReply-@Html.DisplayFor(modelItem => item.Id)">
-            <div class="card card-body">
-                <div class="form-horizontal col-md-12">
-                    @using (Html.BeginForm("Create", "Comments", FormMethod.Post))
-                    {
-                        @Html.AntiForgeryToken()
+            <button class="btn btn-primary mx-2" type="button" data-toggle="collapse" data-target="#viewReplys-@Html.DisplayFor(modelItem => item.Id)" aria-expanded="false" aria-controls="viewReplys-@Html.DisplayFor(modelItem => item.Id)">
+                View Replies  <span class="badge badge-light"> @Model.Comments.Where(c => c.ParentId == item.Id).Count() </span>
+            </button>
 
 
-                        <h4>Reply</h4>
-                        <hr />
-                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="collapse col-md-12 mt-2" id="submitReply-@Html.DisplayFor(modelItem => item.Id)">
+                <div class="card card-body">
+                    <div class="form-horizontal col-md-12">
+                        @using (Html.BeginForm("Create", "Comments", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
 
-                        <div class="form-group">
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.Comment.Body, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Comment.Body, "", new { @class = "text-danger" })
+
+                            <h4>Reply</h4>
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div class="form-group">
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Comment.Body, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Comment.Body, "", new { @class = "text-danger" })
+                                </div>
                             </div>
-                        </div>
 
-                        @Html.Hidden("ArticleId", Model.Article.Id)
+                            @Html.Hidden("ArticleId", Model.Article.Id)
 
-                        @Html.Hidden("ParentId", item.Id)
+                            @Html.Hidden("ParentId", item.Id)
 
-                        <div class="form-group">
-                            <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Reply" class="btn btn-outline-primary" />
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Reply" class="btn btn-outline-primary" />
+                                </div>
                             </div>
-                        </div>
 
-                    }
+                        }
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="collapse col-md-12 mt-2" id="viewReplys-@Html.DisplayFor(modelItem => item.Id)">
-            <div class="card card-body">
+            <div class="collapse col-md-12 mt-2" id="viewReplys-@Html.DisplayFor(modelItem => item.Id)">
+                <div class="card card-body">
 
-                <ul class="list-group col-md-11 mx-auto">
-                    @foreach (var subitem in Model.Comments.Where(c => c.ParentId == item.Id))
-                    {
-                        <li class="list-group-item row" style="display: inherit !important;">
-                            <div class="col-md-3">
-                                <h5>@Html.DisplayNameFor(model => model.Comment.CommentAuthor.Nickname)</h5>
-                                <p>@Html.DisplayFor(modelItem => subitem.CommentAuthor.Nickname) </p>
-                            </div>
+                    <ul class="list-group col-md-11 mx-auto">
+                        @foreach (var subitem in Model.Comments.Where(c => c.ParentId == item.Id))
+                        {
+                            <li class="list-group-item row" style="display: inherit !important;">
+                                <div class="col-md-3">
+                                    <h5>@Html.DisplayNameFor(model => model.Comment.CommentAuthor.Nickname)</h5>
+                                    <p>@Html.DisplayFor(modelItem => subitem.CommentAuthor.Nickname) </p>
+                                </div>
 
-                            <div class="col-md-6">
-                                <h5> @Html.DisplayNameFor(model => model.Comment.Body)</h5>
-                                <p> @Html.DisplayFor(modelItem => subitem.Body)</p>
-                            </div>
+                                <div class="col-md-5">
+                                    <h5> @Html.DisplayNameFor(model => model.Comment.Body)</h5>
+                                    <p> @Html.DisplayFor(modelItem => subitem.Body)</p>
+                                </div>
 
-                            <div class="col-md-3">
-                                <h5> @Html.DisplayNameFor(model => model.Comment.DateCreated)</h5>
-                                <p> @Html.DisplayFor(modelItem => subitem.DateCreated) </p>
-                            </div>
+                                <div class="col-md-3">
+                                    <h5> @Html.DisplayNameFor(model => model.Comment.DateCreated)</h5>
+                                    <p> @Html.DisplayFor(modelItem => subitem.DateCreated) </p>
+                                </div>
+                                <div class="col-md-1">
+                                    @if (subitem.CommentAuthor.Id == User.Identity.GetUserId())
+                                    {
+                                        <a href="@Url.Action("DeleteConfirmed", "Comments", new { id = subitem.Id,  articleid =  Model.Article.Id})" class="btn btn-outline-primary btn-sm"> <i class="fas fa-trash-alt"></i></a>
+                                    }
+                                </div>
+                            </li>
+                        }
+                    </ul>
 
-                        </li>
-                    }
-                </ul>
 
-
+                </div>
             </div>
-        </div>
 
 
 
 
 
-    </li>
-        }
+        </li>
+    }
 
 
-    </ul>
+</ul>
+<hr />  s
+<!-- /Comments -->
+<p><a class="btn btn-outline-primary btn-sm" href="@Url.Action("index")"><i class="fas fa-caret-square-left"></i> Full Article List</a></p>
 
- <!-- /Comments -->
 
-
-
-  @section scripts {
-      <script src="~/Scripts/HighlightFunctions.js"></script>
-   }
+@section scripts {
+    <script src="~/Scripts/HighlightFunctions.js"></script>
+}
