@@ -124,3 +124,4 @@ C:\Users\Matthew_2\source\repos\DCC\Parish-Capstone\DCC-Parish-Capstone\DCC-Pari
 C:\Users\Matthew_2\source\repos\DCC\Parish-Capstone\DCC-Parish-Capstone\DCC-Parish-Capstone\obj\Debug\DCC_Parish_Capstone.Migrations.AdjustedArticle.resources
 C:\Users\Matthew_2\source\repos\DCC\Parish-Capstone\DCC-Parish-Capstone\DCC-Parish-Capstone\obj\Debug\DCC_Parish_Capstone.Migrations.AddedMutilinetextattributetobodyandfeaturedcode.resources
 C:\Users\Matthew_2\source\repos\DCC\Parish-Capstone\DCC-Parish-Capstone\DCC-Parish-Capstone\obj\Debug\DCC_Parish_Capstone.Migrations.FourthMig.resources
+C:\Users\Matthew_2\source\repos\DCC\Parish-Capstone\DCC-Parish-Capstone\DCC-Parish-Capstone\obj\Debug\DCC_Parish_Capstone.Migrations._5thmig.resources

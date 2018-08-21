@@ -49,13 +49,13 @@ namespace DCC_Parish_Capstone.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(int ArticleId, int? ParentId, [Bind(Include = "Id,AspNetUserId,Body")] Comment comment)
+        public ActionResult Create(int ArticleId, int  ParentId, [Bind(Include = "Id,AspNetUserId,Body")] Comment comment)
         {
             if (ModelState.IsValid)
             {
                 InitComment(comment);
                 comment.ArticleId = ArticleId;
-                if (ParentId != 0) { comment.ParentId = (int)ParentId; } else { comment.ParentId = 0; };
+                comment.ParentId = (int)ParentId;;
 
                 db.Comments.Add(comment);
                 db.SaveChanges();

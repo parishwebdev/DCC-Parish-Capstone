@@ -1,67 +1,44 @@
 ﻿@model IEnumerable<DCC_Parish_Capstone.Models.Article>
-
+@using Microsoft.AspNet.Identity
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>All Articles</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @if (User.Identity.IsAuthenticated)
+    {
+        <a href="@Url.Action("Create", "Articles")" class="btn btn-outline-primary ">Create Article &nbsp; <i class="fas fa-plus-square"></i></a>
+    }
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BestPractice.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Language.Name)
-        </th>
- 
-        <th>
-            @Html.DisplayNameFor(model => model.UpVotes)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DownVotes)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateCreated)
-        </th>
- 
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BestPractice.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Language.Name)
-        </td>
- 
-        <td>
-            @Html.DisplayFor(modelItem => item.UpVotes)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DownVotes)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateCreated)
-        </td>
- 
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-        </td>
-    </tr>
-}
+<div class="row ">
+    @foreach (var item in Model)
+    {
+    <div class="col-md-6">
+        <div class="list-group-item my-2">
 
-</table>
+            <h4 class="mt-2"> @Html.DisplayFor(modelItem => item.Title) </h4>
+            <p>
+               <span class="text-size-90 "> @Html.DisplayFor(modelItem => item.ArticleAuthor.Nickname) |  @Html.DisplayFor(modelItem => item.UpVotes) <i class="fas fa-arrow-alt-circle-up"></i>  | @Html.DisplayFor(modelItem => item.DownVotes) <i class="fas fa-arrow-alt-circle-down"></i>  |   @Html.DisplayFor(modelItem => item.DateCreated) </span>
+                <br />
+                <span class="text-muted text-size-85"> @Html.DisplayFor(modelItem => item.Language.Name) | @Html.DisplayFor(modelItem => item.BestPractice.Name) </span>
+            </p>
+
+            <p class="text-truncate">@Html.DisplayFor(modelItem => item.Body)</p>
+            <p>
+                <a href="@Url.Action("Details", "Articles", new { id = item.Id })" class="btn btn-outline-primary ">View Article <i class="fas fa-chevron-circle-right"></i></a>
+
+                &nbsp;
+                @if (item.AspNetUserId == User.Identity.GetUserId())
+                {
+                    <a href="@Url.Action("Edit", "Articles", new { id = item.Id })" class="btn btn-outline-primary ">Edit Article <i class="fas fa-edit"></i></a>
+                    <a href="@Url.Action("Delete", "Articles", new { id = item.Id })" class="btn btn-outline-primary ">Delete Article <i class="fas fa-trash-alt"></i></a>
+                }
+            </p>
+
+        </div>
+    </div>
+    }
+</div>

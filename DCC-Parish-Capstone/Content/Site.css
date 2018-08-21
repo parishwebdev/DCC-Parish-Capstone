@@ -8,9 +8,29 @@
     -ms-transform: translateY(41.5%);
     transform: translateY(41.5%);
 }
+.sp-v-align2 {
+    display: flex;
+    align-items: center;
+}
 .text-bold {
     font-weight: bold;
 }
 .text-size-95 {
-    font-size: 95%;
+    font-size: 95% !important;
+}
+.text-size-90 {
+    font-size: 90% !important;
+}
+.text-size-85 {
+    font-size: 85% !important;
+}
+#homeJumbotron {
+    background-image: url('Img/blkwhiteComputer.jpg');
+    background-size: cover; 
+}
+
+#innerJumbotron {
+    background: rgba(235,104,100, 0.85);
+    border-radius: 5px;
+    color: white;
 }

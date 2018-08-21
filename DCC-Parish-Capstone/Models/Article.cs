@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace DCC_Parish_Capstone.Models
 {
@@ -17,6 +18,7 @@ namespace DCC_Parish_Capstone.Models
         [DataType(DataType.MultilineText)]
         public string Body { get; set; }
 
+        [AllowHtml]
         [DataType(DataType.MultilineText)]
         [Display(Name = "Featured Code")]
         public string FeaturedCode { get; set; }
@@ -43,6 +45,7 @@ namespace DCC_Parish_Capstone.Models
         public DateTime DateCreated { get; set; }
 
         public string AspNetUserId { get; set; }
+        public ApplicationUser ArticleAuthor { get; set; }
 
     }
 }

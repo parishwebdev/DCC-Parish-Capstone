@@ -20,10 +20,16 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="@Url.Action( "Index", "Home")">Home <i class="fas fa-home"></i></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="@Url.Action("Index","Languages")">Articles</a>
+                <li class="nav-item"> 
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle nav-link" type="button" id="dropdownMenuArticles" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Articles</button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuArticles">
+                            <a class="dropdown-item" href="@Url.Action("Index","Articles")"> All Articles  </a>
+                            <a class="dropdown-item" href="@Url.Action("Index","Languages")"> Articles By Language </a>
+                            <a class="dropdown-item" href="@Url.Action("IndexWithBestPractices","Languages")"> Articles By Language/Best Practice </a>
+                        </div>
+                    </div>
                 </li>
-
 
             </ul>
             @Html.Partial("_LoginPartial")
@@ -36,7 +42,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - P.D.V. Application</p>
+            <p>&copy; @DateTime.Now.Year - B.P.W. Application</p>
         </footer>
     </div>
 

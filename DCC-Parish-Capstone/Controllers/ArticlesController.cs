@@ -19,8 +19,22 @@ namespace DCC_Parish_Capstone.Controllers
         // GET: Articles
         public ActionResult Index()
         {
-            var articles = db.Articles.Include(a => a.BestPractice).Include(a => a.Language);
-            return View(articles.ToList());
+
+           var Articles = db.Articles.Include(a => a.BestPractice).Include(a => a.Language);
+           SetArticleAuthors(Articles);
+
+            return View(Articles);
+        }
+
+        private void SetArticleAuthors(IEnumerable<Article> articles)
+        {
+            int i = 0;
+            foreach (var item in articles)
+            {
+                var articleUserId = item.AspNetUserId;
+                articles.ElementAt(i).ArticleAuthor = db.Users.Where(u => u.Id == articleUserId).Single();
+                i++;
+            }
         }
 
         // GET: Articles/Details/5
@@ -35,7 +49,7 @@ namespace DCC_Parish_Capstone.Controllers
              
             aUCVM.Article = db.Articles.Include(a => a.BestPractice).Include(a => a.Language).Single(a => a.Id == id);
             var articleUserId = aUCVM.Article.AspNetUserId;
-            aUCVM.ArticleAuthor = db.Users.Where(u => u.Id == articleUserId).Single();
+            aUCVM.Article.ArticleAuthor = db.Users.Where(u => u.Id == articleUserId).Single();
 
 
             aUCVM.Comments = db.Comments.Where(c => c.ArticleId == aUCVM.Article.Id);
@@ -75,6 +89,7 @@ namespace DCC_Parish_Capstone.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        
         public ActionResult Create([Bind(Include = "Id,Title,Body,FeaturedCode,LanguageId,BestPracticeId")] Article article)
         {
             if (ModelState.IsValid)
@@ -161,6 +176,30 @@ namespace DCC_Parish_Capstone.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+
+        public ActionResult ArticlesByLanguageandBestPractice(int LangId, int BestPractId)
+        {
+
+            var articlesByLanguageandBestPractice = db.Articles.Where(a => a.LanguageId == LangId).Where(a => a.BestPracticeId == BestPractId).Include(a => a.BestPractice).Include(a => a.Language);
+             
+            return View(articlesByLanguageandBestPractice);
+
+        }
+
+        public ActionResult ArticlesByLanguage(int LangId)
+        {
+
+            var articlesByLanguage = db.Articles.Where(a => a.LanguageId == LangId).Include(a => a.BestPractice).Include(a => a.Language);
+
+            return View(articlesByLanguage);
+
+        }
+
+
+
+
+
 
         protected override void Dispose(bool disposing)
         {

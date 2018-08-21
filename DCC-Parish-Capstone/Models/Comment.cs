@@ -15,7 +15,7 @@ namespace DCC_Parish_Capstone.Models
         public string AspNetUserId { get; set; }
         public ApplicationUser CommentAuthor { get; set; }
 
-        
+        [Display(Name = "Comment Text")]
         [DataType(DataType.MultilineText)]
         public string Body { get; set; }
 

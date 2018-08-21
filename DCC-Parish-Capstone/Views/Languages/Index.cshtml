@@ -1,82 +1,23 @@
-﻿@model  DCC_Parish_Capstone.Models.ViewModels.LanguageBestPracticeViewModel
-
+﻿@model IEnumerable<DCC_Parish_Capstone.Models.Language>
 @{
     ViewBag.Title = "Index";
 }
 
 <div id="lanBPTabs" class="container">
-    <h1 class="mt-1 mb-3 text-center  font-weight-bold">View Articles: </h1>
-    <h4 class="mb-3">
-       By @Html.DisplayNameFor(model => model.Languages):
-    </h4>
-    <ul class="nav nav-tabs mb-2" id="myTab" role="tablist">
-        @for (int i = 0; i < Model.Languages.Count(); i++)
+    <h1 class="mt-1 mb-3  font-weight-bold">Articles By Language: </h1>
+    <div class="row">
+        @foreach (var item in Model)
         {
-            //if logic first at 0 i
-            if (i == 0)
-            {
-                <li class="nav-item">
-                    <a href="#@Html.DisplayFor(m => m.Languages.ElementAt(i).Name)" class="nav-link active" data-toggle="tab"> @Html.DisplayFor(m => m.Languages.ElementAt(i).Name)  </a>
-                </li>
-            }
-            else
-            {
-                <li class="nav-item">
-                    <a href="#@Html.DisplayFor(m => m.Languages.ElementAt(i).Name)" class="nav-link " data-toggle="tab"> @Html.DisplayFor(m => m.Languages.ElementAt(i).Name)  </a>
-                </li>
-            }
-        }
-    </ul>
-     
-    <div class="tab-content container-fluid pt-2">
-        <h5 class="mb-3">By Best Practice:</h5>
-        @for (int k = 0; k < Model.Languages.Count(); k++)
-        {
-            if (k == 0)
-            {
-                <div class="tab-pane active" id="@Html.DisplayFor(m => m.Languages.ElementAt(k).Name)" role="tabpanel">
 
-                    <div class="row">
-                        @for (int j = 0; j < Model.BestPractices.Count(); j++)
-                        {
-                            <div class="col-md-4">
-                                <div class="card text-white bg-primary mb-3">
-                                    <div class="card-header">@*@Html.DisplayFor(m => m.Languages.ElementAt(k).Name)*@   @Html.DisplayFor(m => m.BestPractices.ElementAt(j).Name) </div>
-                                    <div class="card-body">
-                                        <a href="#" class="btn btn-outline-light float-right">View Articles &nbsp; <i class="fas fa-chevron-circle-right"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        }
+            <div class="col-md-4">
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-header"> <h4>@Html.DisplayFor(modelitem => item.Name)</h4></div>
+                    <div class="card-body">
+                        <a href="@Url.Action("ArticlesByLanguage", "Articles", new { LangId = @Html.DisplayFor(modelitem => item.Id) })" class="btn btn-outline-light float-right">View Articles &nbsp; <i class="fas fa-chevron-circle-right"></i></a>
                     </div>
-
                 </div>
-            }
-            else
-            {
-                <div class="tab-pane" id="@Html.DisplayFor(m => m.Languages.ElementAt(k).Name)" role="tabpanel">
-                    <div class="row">
-                        @for (int j = 0; j < Model.BestPractices.Count(); j++)
-                        {
-                            <div class="col-md-4">
-                                <div class="card text-white bg-primary mb-3">
-                                    <div class="card-header"> @*@Html.DisplayFor(m => m.Languages.ElementAt(k).Name)*@  @Html.DisplayFor(m => m.BestPractices.ElementAt(j).Name) </div>
-                                    <div class="card-body ">
-                                        <a href="#" class="btn btn-outline-light float-right">View Articles &nbsp; <i class="fas fa-chevron-circle-right"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    </div>
-
-                </div>
-            }
+            </div>
         }
-
-
-
-
     </div>
-
-
+     
 </div>

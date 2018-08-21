@@ -223,6 +223,10 @@
     <Compile Include="Migrations\201808192105426_Fourth Mig.Designer.cs">
       <DependentUpon>201808192105426_Fourth Mig.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808210003513_5th mig.cs" />
+    <Compile Include="Migrations\201808210003513_5th mig.Designer.cs">
+      <DependentUpon>201808210003513_5th mig.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Article.cs" />
@@ -331,6 +335,7 @@
     <Content Include="Content\HighlightCss\xcode.css" />
     <Content Include="Content\HighlightCss\xt256.css" />
     <Content Include="Content\HighlightCss\zenburn.css" />
+    <Content Include="Content\Img\blkwhiteComputer.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -404,6 +409,9 @@
     <Content Include="Views\Comments\Details.cshtml" />
     <Content Include="Views\Comments\Edit.cshtml" />
     <Content Include="Views\Comments\Index.cshtml" />
+    <Content Include="Views\Articles\ArticlesByLanguageandBestPractice.cshtml" />
+    <Content Include="Views\Articles\ArticlesByLanguage.cshtml" />
+    <Content Include="Views\Languages\IndexWithBestPractices.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -436,6 +444,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808192105426_Fourth Mig.resx">
       <DependentUpon>201808192105426_Fourth Mig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808210003513_5th mig.resx">
+      <DependentUpon>201808210003513_5th mig.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

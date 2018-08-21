@@ -16,7 +16,16 @@ namespace DCC_Parish_Capstone.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Languages
+
+
         public ActionResult Index()
+        {
+            var Languages = db.Languages.AsEnumerable();
+
+            return View(Languages);
+        }
+
+        public ActionResult IndexWithBestPractices()
         {
             LanguageBestPracticeViewModel lBPVM = new LanguageBestPracticeViewModel();
 
