@@ -1,0 +1,38 @@
+﻿@model IEnumerable<DCC_Parish_Capstone.Models.Article>
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "TopArticles";
+}
+
+<h2 class="text-center">Top Articles</h2>
+
+
+<div class="row ">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-9 mx-auto">
+            <div class="goldCurveBorder bg-primary text-white my-2">
+
+                <h4 class="mt-2 "> @Html.DisplayFor(modelItem => item.Title) </h4>
+                <p>
+                    <span class="text-size-90 "> @Html.DisplayFor(modelItem => item.ArticleAuthor.Nickname) |  <span class="text-bold">@Html.DisplayFor(modelItem => item.UpVotes)</span> <i class="fas fa-arrow-alt-circle-up text-warning"></i>  | @Html.DisplayFor(modelItem => item.DownVotes) <i class="fas fa-arrow-alt-circle-down"></i>  |   @Html.DisplayFor(modelItem => item.DateCreated) </span>
+                    <br />
+                    <span class="  text-size-85"> @Html.DisplayFor(modelItem => item.Language.Name) | @Html.DisplayFor(modelItem => item.BestPractice.Name) </span>
+                </p>
+
+                <p class="text-truncate">@Html.DisplayFor(modelItem => item.Body)</p>
+                <p>
+                    <a href="@Url.Action("Details", "Articles", new { id = item.Id })" class="btn btn-outline-light ">View Article <i class="fas fa-chevron-circle-right"></i></a>
+
+                    &nbsp;
+                    @if (item.AspNetUserId == User.Identity.GetUserId())
+                    {
+                        <a href="@Url.Action("Edit", "Articles", new { id = item.Id })" class="btn btn-outline-light ">Edit Article <i class="fas fa-edit"></i></a>
+                        <a href="@Url.Action("Delete", "Articles", new { id = item.Id })" class="btn btn-outline-light ">Delete Article <i class="fas fa-trash-alt"></i></a>
+                    }
+                </p>
+
+            </div>
+        </div>
+    }
+</div>

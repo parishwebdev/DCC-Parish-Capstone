@@ -11,13 +11,14 @@
     {
         <a href="@Url.Action("Create", "Articles")" class="btn btn-outline-primary ">Create Article &nbsp; <i class="fas fa-plus-square"></i></a>
     }
-</p>
+</p> 
 
 <div class="row ">
     @foreach (var item in Model)
     {
+        double totalVotes = item.UpVotes + item.DownVotes;
     <div class="col-md-6">
-        <div class="list-group-item my-2">
+        <div class="list-group-item my-2 @if (item.DownVotes > 10 && (item.UpVotes / totalVotes) < 0.50 ) { @Html.DisplayName("downVotedArticle") } ">
 
             <h4 class="mt-2"> @Html.DisplayFor(modelItem => item.Title) </h4>
             <p>

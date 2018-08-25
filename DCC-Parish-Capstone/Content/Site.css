@@ -40,3 +40,28 @@
     border-radius: .25rem;
     padding: .75rem;
 }
+.goldCurveBorder {
+    border: 1.35px solid rgba(255,215,0, 0.85) !important;
+    border-radius: .75rem;
+    padding: .75rem;
+}
+.card-footer{
+    background-color: transparent !important;
+}
+.downVotedArticle {
+    color: rgba(222,226,230, 0.85) !important;
+    border: 1.35px solid rgba(222,226,230, 0.85) !important;
+    background-color: white !important;
+}
+.downVotedArticle *{
+    color: rgba(222,226,230, 0.85) !important; 
+}
+
+.downVotedArticle .btn-outline-primary {
+    border-color: rgba(222,226,230, 0.85) !important;
+}
+
+.card hr {
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+}

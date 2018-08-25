@@ -10,9 +10,10 @@
 
     @foreach (var item in Model)
     {
+        double totalVotes = item.UpVotes + item.DownVotes;
         <div class="col-md-4">
 
-            <div class="card text-white bg-primary">
+            <div class="card  @if (item.DownVotes > 10 && (item.UpVotes / totalVotes) < 0.50 )  { @Html.DisplayName("downVotedArticle") } text-white bg-primary  ">
                 <div class="card-header text-bold">
                     @Html.DisplayFor(modelItem => item.Title)
                 </div>
@@ -23,22 +24,26 @@
                     </h6>
                     <p class="card-text text-truncate">@Html.DisplayFor(modelItem => item.Body)</p>
 
-                </div>
-                <div class="card-footer row">
-                    <div class="col-sm-4">
-                        @Html.DisplayFor(modelItem => item.UpVotes) <i class="fas fa-arrow-alt-circle-up"></i>  | @Html.DisplayFor(modelItem => item.DownVotes) <i class="fas fa-arrow-alt-circle-down"></i>
-                    </div>
-                    <div class="col-sm-8 text-right">
-                        <a href="@Url.Action("Details", "Articles", new { Id =  item.Id })" class="btn btn-outline-light btn-sm">View Article <i class="fas fa-chevron-circle-right"></i></a>
-                       
-                        @if (item.AspNetUserId == User.Identity.GetUserId())
-                        {
-                            <a href="@Url.Action("Edit", "Articles", new { id = item.Id })" class="btn btn-outline-light btn-sm"><i class="fas fa-edit"></i></a>
-                            <a href="@Url.Action("Delete", "Articles", new { id = item.Id })" class="btn btn-outline-light btn-sm"> <i class="fas fa-trash-alt"></i></a>
-                        }
+                    <hr />
 
+                    <div class=" row">
+                        <div class="col-sm-4">
+                            @Html.DisplayFor(modelItem => item.UpVotes) <i class="fas fa-arrow-alt-circle-up"></i>  | @Html.DisplayFor(modelItem => item.DownVotes) <i class="fas fa-arrow-alt-circle-down"></i>
+                        </div>
+                        <div class="col-sm-8 text-right">
+                            <a href="@Url.Action("Details", "Articles", new { Id =  item.Id })" class="btn btn-outline-light btn-sm">View Article <i class="fas fa-chevron-circle-right"></i></a>
+
+                            @if (item.AspNetUserId == User.Identity.GetUserId())
+                            {
+                                <a href="@Url.Action("Edit", "Articles", new { id = item.Id })" class="btn btn-outline-light btn-sm"><i class="fas fa-edit"></i></a>
+                                <a href="@Url.Action("Delete", "Articles", new { id = item.Id })" class="btn btn-outline-light btn-sm"> <i class="fas fa-trash-alt"></i></a>
+                            }
+
+                        </div>
                     </div>
+
                 </div>
+
             </div>
 
         </div>

@@ -12,14 +12,16 @@
 
     @foreach (var item in Model)
     {
+        double totalVotes = item.UpVotes + item.DownVotes;
         <div class="col-md-4">
-
-            <div class="card text-white bg-primary">
+            
+            <div class="card @if (item.DownVotes > 10 && (item.UpVotes / totalVotes) < 0.50 ) { @Html.DisplayName("downVotedArticle") } text-white bg-primary">
                 <div class="card-header text-bold">
                     @Html.DisplayFor(modelItem => item.Title)
                 </div>
                 <div class="card-body">
                     <h6 class="card-title">
+
                         @Html.DisplayFor(modelItem => item.Language.Name)  |
                         @Html.DisplayFor(modelItem => item.BestPractice.Name)
                     </h6>

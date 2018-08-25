@@ -4,11 +4,23 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using DCC_Parish_Capstone.Models;
 using DCC_Parish_Capstone.Models.ViewModels;
+using Google.Apis.Gmail.v1;
+using Google.Apis.Gmail.v1.Data;
 using Microsoft.AspNet.Identity;
+using SelectPdf;
+using System.IO;
+using Google.Apis.Auth.OAuth2;
+using System.Threading;
+using Google.Apis.Util.Store;
+using static Google.Apis.Gmail.v1.GmailService;
+using Google.Apis.Services;
+using System.Text;
+using MimeKit;
 
 namespace DCC_Parish_Capstone.Controllers
 {
@@ -92,6 +104,16 @@ namespace DCC_Parish_Capstone.Controllers
             db.SaveChanges();
             return RedirectToAction("Details", new { id = article.Id });
         }
+
+        public ActionResult TopArticles()
+        {
+            var topArticles = db.Articles.Include(a => a.BestPractice).Include(a => a.Language).OrderByDescending(a => a.UpVotes).OrderBy(a => a.DownVotes).Take(3);
+            SetArticleAuthors(topArticles);
+
+            return View(topArticles);
+        }
+
+
 
         // GET: Articles/Create
         public ActionResult Create()
@@ -213,10 +235,65 @@ namespace DCC_Parish_Capstone.Controllers
 
         }
 
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult SubmitAction(string html,string articleName)
+        {
+            // read parameters from the webpage
+            string htmlString = html;
+              
+            // instantiate a html to pdf converter object
+            HtmlToPdf converter = new HtmlToPdf();
+            converter.Options.CssMediaType = HtmlToPdfCssMediaType.Screen; 
+            // create a new pdf document converting an url
+            PdfDocument doc = converter.ConvertHtmlString(htmlString);
+            
+
+            // save pdf document
+            byte[] pdf = doc.Save();
+
+            // close pdf document
+            doc.Close();
+
+            // return resulted pdf document
+            FileResult fileResult = new FileContentResult(pdf, "application/pdf");
+            fileResult.FileDownloadName = articleName +".pdf";
+            return fileResult;
+
+        }
+
+        [ValidateInput(false)]
+        public ActionResult SendEmail(string to, string html, string articleTitle, int articleId)
+        {
+
+            MailMessage m = new MailMessage();
+            m.Subject = articleTitle + " article from Best Practice Wiki";
+            m.Body =  html;
+            m.IsBodyHtml = true;
+
+            m.From = new MailAddress("bestpracticeswiki@gmail.com");
+
+            m.To.Add(new MailAddress(to));
+            SmtpClient smtp = new SmtpClient();
+            smtp.Host = "smtp.gmail.com";
+
+
+            var userName = System.Web.Configuration.WebConfigurationManager.AppSettings["gEmailUsername"];
+            var password = System.Web.Configuration.WebConfigurationManager.AppSettings["gPassword"];
+
+            NetworkCredential authinfo = new NetworkCredential(userName, password);
+            smtp.UseDefaultCredentials = false;
+            smtp.Credentials = authinfo;
+            smtp.EnableSsl = true;
+            smtp.Send(m);
 
 
 
+            return RedirectToAction("Details", new { id = articleId });
+        }
 
+   
+  
 
         protected override void Dispose(bool disposing)
         {

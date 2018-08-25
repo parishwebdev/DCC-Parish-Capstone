@@ -19,6 +19,7 @@ namespace DCC_Parish_Capstone.Models
         [DataType(DataType.MultilineText)]
         public string Body { get; set; }
 
+        [DataType(DataType.Date)]
         [Display(Name = "Date Created")]
         public DateTime DateCreated { get; set; }
 

@@ -11,6 +11,7 @@ namespace DCC_Parish_Capstone.Models
         [Key]
         public int Id { get; set; }
 
+        [Display(Name = "Rank")]
         public string Name { get; set; }
 
 

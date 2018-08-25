@@ -39,8 +39,10 @@ namespace DCC_Parish_Capstone.Models
 
         [Display(Name = "Down Votes")]
         public int DownVotes { get; set; }
+         
         /* ~~~ ^ (both) ~~~ */
 
+        [DataType(DataType.Date)]
         [Display(Name = "Date Created")]
         public DateTime DateCreated { get; set; }
 
