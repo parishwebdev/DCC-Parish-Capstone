@@ -1,25 +1,114 @@
-﻿@model DCC_Parish_Capstone.Models.ApplicationUser
+﻿@model DCC_Parish_Capstone.Models.ViewModels.UserPortalViewModel
 @{
     ViewBag.Title = "UserPortal";
 }
 
-<h2>User Portal</h2>
+<h2 class="my-1">User Portal</h2>
 
-<div class="row mt-3">
-    <div class="col-md-4">
-        <div class="curveGreyBorder">
+<div class="row mt-4">
+    <div class="col-md-3">
 
-            <span class="text-dark text-bold"> @Html.DisplayNameFor(model => model.Nickname) </span>
-            <p>@Html.DisplayFor(model => model.Nickname) </p>
+            <div class="card text-center">
+                <div class="card-header bg-primary text-white">
+                    <h3>User Stats</h3>
+                </div>
+            
 
-            <span class="text-dark text-bold">@Html.DisplayNameFor(model => model.Rank.Name)</span>
-            <p> @Html.DisplayFor(model => model.Rank.Name) </p>
+                <div class="curveGreyBorder">
 
-            <span class="text-dark text-bold">@Html.DisplayNameFor(model => model.Points)</span>
-            <p> @Html.DisplayFor(model => model.Points) </p>
+                    <span class="text-dark text-bold"> @Html.DisplayNameFor(model => model.CurrentWebDev.Nickname) </span>
+                    <p>@Html.DisplayFor(model => model.CurrentWebDev.Nickname) </p>
+
+                    <span class="text-dark text-bold">@Html.DisplayNameFor(model => model.CurrentWebDev.Rank.Name)</span>
+                    <p> @Html.DisplayFor(model => model.CurrentWebDev.Rank.Name) </p>
+
+                    <span class="text-dark text-bold">@Html.DisplayNameFor(model => model.CurrentWebDev.Points)</span>
+                    <p> @Html.DisplayFor(model => model.CurrentWebDev.Points) </p>
+                </div>
+            </div>
+            <div class="bg-primary p-2 text-white">
+                <br />
+            </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-9">
+            <div class="row">
+                <div class="card text-center col-md-12 p-0">
+                    <div class="card-header bg-primary text-white">
+                        <div class="col-md-12">
+                            <h3>Notifications</h3>
+                        </div>
+                    </div>
+                    <div class="card-body row">
+                        <div class="col-md-6">
+                            <div class="card text-center">
+                                <div class="card-header bg-primary text-white">
+                                    <span class="text-bold">Subscription(s):</span>
+                                </div>
+                                <div class="card-body">
 
+                                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+
+                                </div>
+                                <div class="bg-primary p-2 text-white">
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card text-center">
+                                <div class="card-header bg-primary text-white">
+                                    <span class="text-bold ">Comments On @Html.DisplayFor(model => model.CurrentWebDev.Nickname)'s Articles:</span>
+                                </div>
+                                <div class="card-body">
+
+                                    <ul class="list-group "> 
+                                        @if (Model.commentNotifications.Count() > 0)
+                                        {
+                                            foreach (var comNot in Model.commentNotifications) {
+                                        <li class="list-group-item text-size-95 ">
+                                            <div class="row">
+                                                <div class="col-md-10">
+                                                    @if (comNot.Comment.ParentId == 0)
+                                                    {
+                                                        @comNot.Comment.CommentAuthor.Nickname @:commented on your article:  @comNot.Comment.Article.Title
+                                                    }
+                                                    else
+                                                    {
+                                                        @comNot.Comment.CommentAuthor.Nickname @:replyed to a comment on your article:  @comNot.Comment.Article.Title
+                                                    }
+
+                                                </div>
+                                                <div class="col-md-2 sp-v-align2">
+                                                    <a href="@Url.Action("DeleteConfirmed","CommentNotifications", new { id = comNot.Id })" class="text-primary">
+                                                        <i class="fas fa-times-circle"></i>
+                                                    </a>
+                                                </div> 
+                                            </div>
+                                        </li>
+                                              }
+                                            }
+                                        else
+                                        {
+                                            <li class="list-group-item">
+                                                No Comment Notifications at this time.
+                                            </li>
+                                        }
+                                    </ul>
+
+                                </div>
+                                <div class="bg-primary p-2 text-white">
+                                    <br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-primary p-2 text-white">
+                        <br />
+                    </div>
+
+                </div>
+
+            </div>
         </div>
     </div>
-</div>
+ 

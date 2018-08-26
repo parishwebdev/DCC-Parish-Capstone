@@ -227,6 +227,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ArticlesController.cs" />
+    <Compile Include="Controllers\CommentNotificationsController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LanguagesController.cs" />
@@ -446,6 +447,11 @@
     <Content Include="Views\Languages\IndexWithBestPractices.cshtml" />
     <Content Include="Views\Manage\UserPortal.cshtml" />
     <Content Include="Views\Articles\TopArticles.cshtml" />
+    <Content Include="Views\CommentNotifications\Create.cshtml" />
+    <Content Include="Views\CommentNotifications\Delete.cshtml" />
+    <Content Include="Views\CommentNotifications\Details.cshtml" />
+    <Content Include="Views\CommentNotifications\Edit.cshtml" />
+    <Content Include="Views\CommentNotifications\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -56,15 +56,31 @@ namespace DCC_Parish_Capstone.Controllers
                 InitComment(comment);
                 comment.ArticleId = ArticleId;
                 comment.ParentId = (int)ParentId;;
-
+                 
                 db.Comments.Add(comment);
                 db.SaveChanges();
+
+                TriggerCommentNotification(comment);
                 return RedirectToAction("Details", "Articles", new { id = comment.ArticleId });
             }
-
-            //ViewBag.ArticleId = new SelectList(db.Articles, "Id", "Title", comment.ArticleId);
-            //return View(comment);
+             
             return RedirectToAction("Details", "Articles", new { id = ArticleId });
+        }
+
+        private void TriggerCommentNotification(Comment comment)
+        {
+            CommentNotification commentNotification = new CommentNotification();
+            commentNotification.CommentId = comment.Id;
+            commentNotification.AspNetUserId = GetCommentArticleAuthorId(comment.ArticleId);
+
+            db.CommentNotifications.Add(commentNotification);
+            db.SaveChanges();
+        }
+
+        private string GetCommentArticleAuthorId(int articleid)
+        {
+            Article article = db.Articles.Find(articleid);
+            return article.AspNetUserId;
         }
 
         private void InitComment(Comment comment)

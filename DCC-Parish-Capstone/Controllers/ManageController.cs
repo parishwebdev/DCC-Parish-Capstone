@@ -8,6 +8,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using DCC_Parish_Capstone.Models;
 using System.Data.Entity;
+using DCC_Parish_Capstone.Models.ViewModels;
+using System.Collections.Generic;
 
 namespace DCC_Parish_Capstone.Controllers
 {
@@ -391,14 +393,65 @@ namespace DCC_Parish_Capstone.Controllers
 #region WebDevUserCode 
         public ActionResult UserPortal()
         {
+            UserPortalViewModel uPVM = new UserPortalViewModel();
 
             var userId = User.Identity.GetUserId();
-            var loggedInUser = db.Users.Include(u => u.Rank).Where(u => u.Id == userId).Single(); //.Include(u => u.Rank);
-            
+            var loggedInUser = db.Users.Include(u => u.Rank).Where(u => u.Id == userId).Single();  
 
-            return View(loggedInUser);
+            uPVM.CurrentWebDev = loggedInUser; 
+            uPVM.commentNotifications = db.CommentNotifications.Where(cm => cm.AspNetUserId == userId);
+
+            SetCommentNotificationCommentsAuthorsArticles(uPVM.commentNotifications);
+
+            return View(uPVM);
         }
-#endregion
+
+
+        private void SetCommentNotificationCommentsAuthorsArticles(IEnumerable<CommentNotification> commentNotifications)
+        {
+            SetComments(commentNotifications);
+            SetCommentAuthors(commentNotifications);
+            SetCommentArticles(commentNotifications);
+        }
+
+
+
+        private void SetComments(IEnumerable<CommentNotification> commentNotifications)
+        {
+            int i = 0;
+            foreach (var item in commentNotifications)
+            {
+                Comment comment = db.Comments.Find(item.CommentId);
+
+                commentNotifications.ElementAt(i).Comment = comment;
+                i++;
+            }
+        }
+        private void SetCommentAuthors(IEnumerable<CommentNotification> commentNotifications)
+        {
+            int i = 0;
+            foreach (var item in commentNotifications)
+            {
+                var commentUserId = item.Comment.AspNetUserId;
+                commentNotifications.ElementAt(i).Comment.CommentAuthor = db.Users.Where(u => u.Id == commentUserId).Single();
+                i++;
+            }
+        }
+
+        private void SetCommentArticles(IEnumerable<CommentNotification> commentNotifications)
+        {
+            int i = 0;
+            foreach (var item in commentNotifications)
+            {
+                var commentUserId = item.Comment.AspNetUserId;
+                var articleId = item.Comment.ArticleId;
+                commentNotifications.ElementAt(i).Comment.Article = db.Articles.Where(a => a.Id == articleId).Single();
+                i++;
+            }
+        }
+
+
+        #endregion
 
 
 

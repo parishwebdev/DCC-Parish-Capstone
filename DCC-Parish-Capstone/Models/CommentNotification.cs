@@ -18,6 +18,5 @@ namespace DCC_Parish_Capstone.Models
         public Comment Comment { get; set; }
 
         public string AspNetUserId { get; set; }
-
     }
 }
