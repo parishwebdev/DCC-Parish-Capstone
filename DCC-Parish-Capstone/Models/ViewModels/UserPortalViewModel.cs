@@ -10,5 +10,7 @@ namespace DCC_Parish_Capstone.Models.ViewModels
         public ApplicationUser CurrentWebDev { get; set; }
 
         public IEnumerable<CommentNotification> commentNotifications { get; set; }
+
+        public IEnumerable<Subscription> subscriptions { get; set; }
     }
 }

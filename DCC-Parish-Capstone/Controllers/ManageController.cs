@@ -397,11 +397,16 @@ namespace DCC_Parish_Capstone.Controllers
 
             var userId = User.Identity.GetUserId();
             var loggedInUser = db.Users.Include(u => u.Rank).Where(u => u.Id == userId).Single();  
-
             uPVM.CurrentWebDev = loggedInUser; 
-            uPVM.commentNotifications = db.CommentNotifications.Where(cm => cm.AspNetUserId == userId);
+
+
+            uPVM.commentNotifications = db.CommentNotifications.Where(cm => cm.AspNetUserId == uPVM.CurrentWebDev.Id);
+
+            uPVM.subscriptions = db.Subscriptions.Include(s => s.BestPracticeSub).Include(s => s.Language).Where(sub => sub.AspNetUserId == uPVM.CurrentWebDev.Id);
+
 
             SetCommentNotificationCommentsAuthorsArticles(uPVM.commentNotifications);
+            SetSubscriptionArticleNotification(uPVM.subscriptions);
 
             return View(uPVM);
         }
@@ -413,9 +418,7 @@ namespace DCC_Parish_Capstone.Controllers
             SetCommentAuthors(commentNotifications);
             SetCommentArticles(commentNotifications);
         }
-
-
-
+         
         private void SetComments(IEnumerable<CommentNotification> commentNotifications)
         {
             int i = 0;
@@ -437,7 +440,6 @@ namespace DCC_Parish_Capstone.Controllers
                 i++;
             }
         }
-
         private void SetCommentArticles(IEnumerable<CommentNotification> commentNotifications)
         {
             int i = 0;
@@ -450,6 +452,36 @@ namespace DCC_Parish_Capstone.Controllers
             }
         }
 
+        private void SetSubscriptionArticleNotification(IEnumerable<Subscription> subscriptions)
+        {
+
+            foreach (var sub in subscriptions)
+            {
+                sub.SubscriptionArticleNotification = db.ArticleNotifications.Include(a => a.Article).Where(an => an.SubscriptionId == sub.Id).Where(an => an.AspNetUserId == sub.AspNetUserId);
+            }
+
+
+
+        }
+
+        //private void SetSubscriptionArticles(IEnumerable<Subscription> subscriptions)
+        //{
+
+        //    foreach(var sub in subscriptions)
+        //    {
+        //        if (sub.BestPracticeSub.Id != 12)
+        //        {
+        //            sub.SubscriptionArticles = db.Articles.Where(a => a.LanguageId == sub.LanguageId).Where(a => a.BestPracticeId == sub.BestPracticeId);
+        //        }
+        //        else
+        //        {
+        //            sub.SubscriptionArticles = db.Articles.Where(a => a.LanguageId == sub.LanguageId);
+        //        }
+        //    }
+
+        //}
+
+       
 
         #endregion
 

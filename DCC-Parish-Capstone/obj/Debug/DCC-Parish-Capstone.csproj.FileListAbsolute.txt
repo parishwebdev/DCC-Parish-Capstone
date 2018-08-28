@@ -147,3 +147,7 @@ C:\Users\Matthew_2\source\repos\DCC\Parish-Capstone\DCC-Parish-Capstone\DCC-Pari
 C:\Users\Matthew_2\source\repos\DCC\Parish-Capstone\DCC-Parish-Capstone\DCC-Parish-Capstone\obj\Debug\DCC-Parish-Capstone.csproj.CopyComplete
 C:\Users\Matthew_2\source\repos\DCC\Parish-Capstone\DCC-Parish-Capstone\DCC-Parish-Capstone\obj\Debug\DCC-Parish-Capstone.dll
 C:\Users\Matthew_2\source\repos\DCC\Parish-Capstone\DCC-Parish-Capstone\DCC-Parish-Capstone\obj\Debug\DCC-Parish-Capstone.pdb
+C:\Users\Matthew_2\source\repos\DCC\Parish-Capstone\DCC-Parish-Capstone\DCC-Parish-Capstone\obj\Debug\DCC_Parish_Capstone.Migrations.seedadjustingbestpractseed.resources
+C:\Users\Matthew_2\source\repos\DCC\Parish-Capstone\DCC-Parish-Capstone\DCC-Parish-Capstone\obj\Debug\DCC_Parish_Capstone.Migrations.seedbpcorrectthistime.resources
+C:\Users\Matthew_2\source\repos\DCC\Parish-Capstone\DCC-Parish-Capstone\DCC-Parish-Capstone\obj\Debug\DCC_Parish_Capstone.Migrations.minusnotificationsaddarticlenotications.resources
+C:\Users\Matthew_2\source\repos\DCC\Parish-Capstone\DCC-Parish-Capstone\DCC-Parish-Capstone\obj\Debug\DCC_Parish_Capstone.Migrations.addsubtoartnotific.resources

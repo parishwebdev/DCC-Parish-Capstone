@@ -232,6 +232,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LanguagesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\SubscriptionsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -259,9 +260,26 @@
     <Compile Include="Migrations\201808210003513_5th mig.Designer.cs">
       <DependentUpon>201808210003513_5th mig.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201808262122007_seed adjusting best pract seed.cs" />
+    <Compile Include="Migrations\201808262122007_seed adjusting best pract seed.Designer.cs">
+      <DependentUpon>201808262122007_seed adjusting best pract seed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808262128535_seed bp correct this time.cs" />
+    <Compile Include="Migrations\201808262128535_seed bp correct this time.Designer.cs">
+      <DependentUpon>201808262128535_seed bp correct this time.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808270201160_minus notifications, add article notications.cs" />
+    <Compile Include="Migrations\201808270201160_minus notifications, add article notications.Designer.cs">
+      <DependentUpon>201808270201160_minus notifications, add article notications.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201808272229035_add sub to art notific.cs" />
+    <Compile Include="Migrations\201808272229035_add sub to art notific.Designer.cs">
+      <DependentUpon>201808272229035_add sub to art notific.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Article.cs" />
+    <Compile Include="Models\ArticleNotification.cs" />
     <Compile Include="Models\Badge.cs" />
     <Compile Include="Models\BestPractice.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -269,7 +287,6 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Language.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\Rank.cs" />
     <Compile Include="Models\Subscription.cs" />
     <Compile Include="Models\UserBadge.cs" />
@@ -379,6 +396,7 @@
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\CapstonejQuery.js" />
     <Content Include="Scripts\codemirror.js" />
     <Content Include="Scripts\CodeMirrorFunctions.js" />
     <Content Include="Scripts\highlight.pack.js" />
@@ -452,6 +470,11 @@
     <Content Include="Views\CommentNotifications\Details.cshtml" />
     <Content Include="Views\CommentNotifications\Edit.cshtml" />
     <Content Include="Views\CommentNotifications\Index.cshtml" />
+    <Content Include="Views\Subscriptions\Create.cshtml" />
+    <Content Include="Views\Subscriptions\Delete.cshtml" />
+    <Content Include="Views\Subscriptions\Details.cshtml" />
+    <Content Include="Views\Subscriptions\Edit.cshtml" />
+    <Content Include="Views\Subscriptions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -487,6 +510,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201808210003513_5th mig.resx">
       <DependentUpon>201808210003513_5th mig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808262122007_seed adjusting best pract seed.resx">
+      <DependentUpon>201808262122007_seed adjusting best pract seed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808262128535_seed bp correct this time.resx">
+      <DependentUpon>201808262128535_seed bp correct this time.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808270201160_minus notifications, add article notications.resx">
+      <DependentUpon>201808270201160_minus notifications, add article notications.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201808272229035_add sub to art notific.resx">
+      <DependentUpon>201808272229035_add sub to art notific.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

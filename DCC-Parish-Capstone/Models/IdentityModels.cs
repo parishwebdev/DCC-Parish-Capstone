@@ -52,7 +52,7 @@ namespace DCC_Parish_Capstone.Models
         public System.Data.Entity.DbSet<DCC_Parish_Capstone.Models.Comment> Comments { get; set; }
         public System.Data.Entity.DbSet<DCC_Parish_Capstone.Models.CommentNotification> CommentNotifications { get; set; }
         public System.Data.Entity.DbSet<DCC_Parish_Capstone.Models.Subscription> Subscriptions { get; set; }
-         public System.Data.Entity.DbSet<DCC_Parish_Capstone.Models.Notification> Notifications { get; set; }
+         public System.Data.Entity.DbSet<DCC_Parish_Capstone.Models.ArticleNotification> ArticleNotifications { get; set; }
          public System.Data.Entity.DbSet<DCC_Parish_Capstone.Models.UserBadge> UserBadges { get; set; }
 
     }

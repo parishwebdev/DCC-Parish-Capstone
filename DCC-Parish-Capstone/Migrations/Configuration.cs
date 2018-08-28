@@ -40,6 +40,7 @@ namespace DCC_Parish_Capstone.Migrations
             //Best Practices
             context.BestPractices.AddOrUpdate(
              bp => bp.Name,
+            
              new BestPractice { Id = 1, Name = "Single Responsibility Principle" },
              new BestPractice { Id = 2, Name = "Open/Closed Principle" },
              new BestPractice { Id = 3, Name = "Liskov Substitution Principle" },
@@ -50,7 +51,8 @@ namespace DCC_Parish_Capstone.Migrations
              new BestPractice { Id = 8, Name = "Adapter Pattern" },
              new BestPractice { Id = 9, Name = "Decorator Pattern" },
              new BestPractice { Id = 10, Name = "Strategy Pattern" },
-             new BestPractice { Id = 11, Name = "Template Method Pattern" }
+             new BestPractice { Id = 11, Name = "Template Method Pattern" },
+              new BestPractice { Id = 12, Name = "No Best Practice" }
            );
 
 

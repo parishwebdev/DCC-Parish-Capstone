@@ -118,7 +118,7 @@ namespace DCC_Parish_Capstone.Controllers
         // GET: Articles/Create
         public ActionResult Create()
         {
-            ViewBag.BestPracticeId = new SelectList(db.BestPractices, "Id", "Name");
+            ViewBag.BestPracticeId = new SelectList(db.BestPractices.Where(bp => bp.Id != 12), "Id", "Name");
             ViewBag.LanguageId = new SelectList(db.Languages, "Id", "Name");
             return View();
         }
@@ -136,12 +136,44 @@ namespace DCC_Parish_Capstone.Controllers
                 InitArticle(article);
                 db.Articles.Add(article);
                 db.SaveChanges();
+                TriggerArticleNotification(article);
+
                 return RedirectToAction("Index");
             }
 
-            ViewBag.BestPracticeId = new SelectList(db.BestPractices, "Id", "Name", article.BestPracticeId);
+            ViewBag.BestPracticeId = new SelectList(db.BestPractices.Where(bp => bp.Id != 12), "Id", "Name", article.BestPracticeId);
             ViewBag.LanguageId = new SelectList(db.Languages, "Id", "Name", article.LanguageId);
             return View(article);
+        }
+
+        private void TriggerArticleNotification(Article article)
+        {
+
+            foreach (var subscription in db.Subscriptions)
+            {
+                if (subscription.LanguageId == article.LanguageId && subscription.BestPracticeId == 12)
+                {
+                    CreateArticleNotificationForSubscription(article, subscription);
+                }
+                if (subscription.LanguageId == article.LanguageId && subscription.BestPracticeId == article.BestPracticeId)
+                {
+                    CreateArticleNotificationForSubscription(article, subscription);
+                }
+                 
+            }
+            db.SaveChanges();
+
+        }
+
+        private void CreateArticleNotificationForSubscription(Article article, Subscription subscription)
+        {
+            ArticleNotification articleNotification = new ArticleNotification();
+            articleNotification.ArticleId = article.Id; 
+
+            articleNotification.AspNetUserId = subscription.AspNetUserId;
+            articleNotification.SubscriptionId = subscription.Id;
+
+            db.ArticleNotifications.Add(articleNotification);
         }
 
         private void InitArticle(Article article)
@@ -167,7 +199,7 @@ namespace DCC_Parish_Capstone.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.BestPracticeId = new SelectList(db.BestPractices, "Id", "Name", article.BestPracticeId);
+            ViewBag.BestPracticeId = new SelectList(db.BestPractices.Where(bp => bp.Id != 12), "Id", "Name", article.BestPracticeId);
             ViewBag.LanguageId = new SelectList(db.Languages, "Id", "Name", article.LanguageId);
             return View(article);
         }
@@ -185,7 +217,7 @@ namespace DCC_Parish_Capstone.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.BestPracticeId = new SelectList(db.BestPractices, "Id", "Name", article.BestPracticeId);
+            ViewBag.BestPracticeId = new SelectList(db.BestPractices.Where(bp => bp.Id != 12), "Id", "Name", article.BestPracticeId);
             ViewBag.LanguageId = new SelectList(db.Languages, "Id", "Name", article.LanguageId);
             return View(article);
         }

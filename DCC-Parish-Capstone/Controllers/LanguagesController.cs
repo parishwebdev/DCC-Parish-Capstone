@@ -30,7 +30,7 @@ namespace DCC_Parish_Capstone.Controllers
             LanguageBestPracticeViewModel lBPVM = new LanguageBestPracticeViewModel();
 
             lBPVM.Languages = db.Languages.AsEnumerable();
-            lBPVM.BestPractices = db.BestPractices.AsEnumerable();
+            lBPVM.BestPractices = db.BestPractices.Where(bp => bp.Id != 12).AsEnumerable();
 
             return View(lBPVM);
         }

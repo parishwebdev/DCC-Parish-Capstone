@@ -46,7 +46,42 @@
                                 </div>
                                 <div class="card-body">
 
-                                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                    <ul class="list-group">
+                                        @if (Model.subscriptions.Count() > 0) {
+                                            foreach (var sub in Model.subscriptions)
+                                            {
+
+
+                                            <li class=" list-group-item list-group-item-primary">
+                                                @sub.Language.Name @if (sub.BestPracticeSub.Id != 12)
+                                                {<text> / </text>  @sub.BestPracticeSub.Name}
+
+                                            </li>
+
+
+                                                if (sub.SubscriptionArticleNotification.Count() > 0)
+                                                {
+                                                    foreach (var art in sub.SubscriptionArticleNotification)
+                                                    {
+                                                        <li class="list-group-item">
+                                                            <a href="@Url.Action("Details","Articles", new { id = art.Article.Id})"> @art.Article.Title</a>, was posted
+                                                        </li>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                <li class="list-group-item">No articles have been posted yet for this subscription</li>
+                                                }
+                                            }
+                                         }
+                                         else
+                                         {
+                                            <li class=" list-group-item list-group-item-primary">
+                                                You haven't subscribe to any language or language/best practice
+                                            </li>
+                                         }
+                                        
+                                    </ul>
 
                                 </div>
                                 <div class="bg-primary p-2 text-white">
@@ -74,7 +109,7 @@
                                                     }
                                                     else
                                                     {
-                                                        @comNot.Comment.CommentAuthor.Nickname @:replyed to a comment on your article:  @comNot.Comment.Article.Title
+                                                        @comNot.Comment.CommentAuthor.Nickname @:replied to a comment on your article:  @comNot.Comment.Article.Title
                                                     }
 
                                                 </div>

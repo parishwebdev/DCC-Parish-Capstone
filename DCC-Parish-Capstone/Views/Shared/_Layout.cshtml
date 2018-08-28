@@ -20,10 +20,16 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="@Url.Action( "Index", "Home")">Home <i class="fas fa-home"></i></a>
                 </li>
-                <li class="nav-item"> 
+                <li class="nav-item">
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle nav-link" type="button" id="dropdownMenuArticles" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Articles</button>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuArticles">
+
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <a class="dropdown-item" href="@Url.Action("Create", "Articles")"> Create Article  </a>
+                                <div class="dropdown-divider"></div>
+                            }
                             <a class="dropdown-item" href="@Url.Action("TopArticles","Articles")"> Top Articles  </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="@Url.Action("Index","Articles")"> All Articles  </a>
@@ -50,6 +56,6 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    @RenderSection("scripts", required: false) 
 </body>
 </html>

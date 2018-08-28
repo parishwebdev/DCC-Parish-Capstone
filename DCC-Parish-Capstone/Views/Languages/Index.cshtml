@@ -6,17 +6,28 @@
 <div id="lanBPTabs" class="container">
     <h1 class="mt-1 mb-3  font-weight-bold">View Articles By Language: </h1>
     <div class="row">
+        @{ int j = 0;}
         @foreach (var item in Model)
         {
 
             <div class="col-md-4">
                 <div class="card text-white bg-primary mb-3">
-                    <div class="card-header"> <h4>@Html.DisplayFor(modelitem => item.Name)</h4></div>
-                    <div class="card-body">
-                        <a href="@Url.Action("ArticlesByLanguage", "Articles", new { LangId = @Html.DisplayFor(modelitem => item.Id) })" class="btn btn-outline-light float-right">View Articles &nbsp; <i class="fas fa-chevron-circle-right"></i></a>
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-6">
+                                <h4>@Html.DisplayFor(modelitem => item.Name)</h4>
+                            </div>
+                            <div class="col-6">
+                                <a href="@Url.Action("Create","Subscriptions", new { LanguageId = @Html.DisplayFor(modelitem => item.Id),  BestPracticeId =  12 })" id="Subscribe-@j" class="btn btn-outline-light float-right"> Subscribe <i class="fas fa-plus-circle ml-1"></i> </a> 
+                            </div>
+                        </div>
+                        </div>
+                        <div class="card-body">
+                            <a href="@Url.Action("ArticlesByLanguage", "Articles", new { LangId = @Html.DisplayFor(modelitem => item.Id) })" class="btn btn-outline-light float-right">View Articles &nbsp; <i class="fas fa-chevron-circle-right"></i></a>
+                        </div>
                     </div>
-                </div>
             </div>
+            j++;
         }
     </div>
      

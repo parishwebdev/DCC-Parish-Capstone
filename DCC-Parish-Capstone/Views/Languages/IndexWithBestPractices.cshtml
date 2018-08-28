@@ -41,7 +41,17 @@
                         {
                             <div class="col-md-4">
                                 <div class="card text-white bg-primary mb-3">
-                                    <div class="card-header">@*@Html.DisplayFor(m => m.Languages.ElementAt(k).Name)*@   @Html.DisplayFor(m => m.BestPractices.ElementAt(j).Name) </div>
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <div class="col-7">
+                                                @Html.DisplayFor(m => m.BestPractices.ElementAt(j).Name)
+                                            </div>
+
+                                            <div class="col-5">
+                                                <a href="@Url.Action("Create","Subscriptions", new { LanguageId = @Html.DisplayFor(m => m.Languages.ElementAt(k).Id),  BestPracticeId = @Html.DisplayFor(m => m.BestPractices.ElementAt(j).Id)})" id="Subscribe-@j" class="btn btn-outline-light float-right btn-sm"> Subscribe <i class="fas fa-plus-circle ml-1"></i> </a> 
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="card-body">
                                         <a href="@Url.Action("ArticlesByLanguageandBestPractice", "Articles", new { LangId = @Html.DisplayFor(m => m.Languages.ElementAt(k).Id), BestPractId = @Html.DisplayFor(m => m.BestPractices.ElementAt(j).Id)  })" class="btn btn-outline-light float-right">View Articles &nbsp; <i class="fas fa-chevron-circle-right"></i></a>
                                     </div>
@@ -60,14 +70,31 @@
                         {
                             <div class="col-md-4">
                                 <div class="card text-white bg-primary mb-3">
-                                    <div class="card-header"> @*@Html.DisplayFor(m => m.Languages.ElementAt(k).Name)*@  @Html.DisplayFor(m => m.BestPractices.ElementAt(j).Name) </div>
+                                    <div class="card-header">
+                                        <div class="row">
+                                            <div class="col-7">
+                                                @Html.DisplayFor(m => m.BestPractices.ElementAt(j).Name)
+                                            </div>
+
+                                            <div class="col-5">
+                                                <a href="@Url.Action("Create","Subscriptions", new { LanguageId = @Html.DisplayFor(m => m.Languages.ElementAt(k).Id),  BestPracticeId = @Html.DisplayFor(m => m.BestPractices.ElementAt(j).Id)})" id="Subscribe-@j" class="btn btn-outline-light float-right btn-sm"> Subscribe <i class="fas fa-plus-circle ml-1"></i> </a> 
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="card-body ">
                                         <a href="@Url.Action("ArticlesByLanguageandBestPractice", "Articles", new { LangId = @Html.DisplayFor(m => m.Languages.ElementAt(k).Id), BestPractId = @Html.DisplayFor(m => m.BestPractices.ElementAt(j).Id)  })" class="btn btn-outline-light float-right">View Articles &nbsp; <i class="fas fa-chevron-circle-right"></i></a>
                                     </div>
                                 </div>
                             </div>
-                        }
-                    </div>
+
+
+
+
+
+
+
+                            }
+                        </div>
 
                 </div>
             }
@@ -80,3 +107,5 @@
 
 
 </div>
+
+

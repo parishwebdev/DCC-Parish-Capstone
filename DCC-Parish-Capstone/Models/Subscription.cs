@@ -24,5 +24,8 @@ namespace DCC_Parish_Capstone.Models
 
         public string AspNetUserId { get; set; }
 
+
+        public IEnumerable<ArticleNotification> SubscriptionArticleNotification { get; set; }
+
     }
 }
