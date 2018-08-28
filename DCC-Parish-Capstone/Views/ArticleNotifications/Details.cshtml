@@ -1,0 +1,42 @@
+﻿@model DCC_Parish_Capstone.Models.ArticleNotification
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ArticleNotification</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Article.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Article.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Subscription.AspNetUserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Subscription.AspNetUserId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetUserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUserId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

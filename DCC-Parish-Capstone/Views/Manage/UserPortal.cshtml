@@ -12,8 +12,7 @@
                 <div class="card-header bg-primary text-white">
                     <h3>User Stats</h3>
                 </div>
-            
-
+             
                 <div class="curveGreyBorder">
 
                     <span class="text-dark text-bold"> @Html.DisplayNameFor(model => model.CurrentWebDev.Nickname) </span>
@@ -53,8 +52,15 @@
 
 
                                             <li class=" list-group-item list-group-item-primary">
-                                                @sub.Language.Name @if (sub.BestPracticeSub.Id != 12)
-                                                {<text> / </text>  @sub.BestPracticeSub.Name}
+                                                <div class="row">
+                                                    <div class="col-7">
+                                                        @sub.Language.Name @if (sub.BestPracticeSub.Id != 12)
+                                                        {<text> / </text> @sub.BestPracticeSub.Name}
+                                                    </div>
+                                                    <div class="col-5">
+                                                        <a href="@Url.Action("DeleteConfirmed","Subscriptions", new { id = sub.Id })" class="btn btn-outline-primary float-right btn-sm"> Unsubscribe <i class="far fa-times-circle ml-1"></i> </a>
+                                                    </div>
+                                                </div>
 
                                             </li>
 
@@ -64,7 +70,16 @@
                                                     foreach (var art in sub.SubscriptionArticleNotification)
                                                     {
                                                         <li class="list-group-item">
-                                                            <a href="@Url.Action("Details","Articles", new { id = art.Article.Id})"> @art.Article.Title</a>, was posted
+                                                            <div class="row">
+                                                                <div class="col-9">
+                                                                    <a href="@Url.Action("Details","Articles", new { id = art.Article.Id})"> @art.Article.Title</a>, was posted
+                                                                </div>
+                                                                <div class="col-3">
+                                                                    <a href="@Url.Action("DeleteConfirmed","ArticleNotifications", new { id = art.Id})" class="btn btn-outline-primary float-right btn-sm"> <i class="far fa-times-circle"></i> </a>
+                                                                </div>
+                                                            </div>
+
+                                                            
                                                         </li>
                                                     }
                                                 }

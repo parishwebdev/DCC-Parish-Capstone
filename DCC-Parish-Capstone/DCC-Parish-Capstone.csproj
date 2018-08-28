@@ -226,6 +226,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ArticleNotificationsController.cs" />
     <Compile Include="Controllers\ArticlesController.cs" />
     <Compile Include="Controllers\CommentNotificationsController.cs" />
     <Compile Include="Controllers\CommentsController.cs" />
@@ -475,6 +476,11 @@
     <Content Include="Views\Subscriptions\Details.cshtml" />
     <Content Include="Views\Subscriptions\Edit.cshtml" />
     <Content Include="Views\Subscriptions\Index.cshtml" />
+    <Content Include="Views\ArticleNotifications\Create.cshtml" />
+    <Content Include="Views\ArticleNotifications\Delete.cshtml" />
+    <Content Include="Views\ArticleNotifications\Details.cshtml" />
+    <Content Include="Views\ArticleNotifications\Edit.cshtml" />
+    <Content Include="Views\ArticleNotifications\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

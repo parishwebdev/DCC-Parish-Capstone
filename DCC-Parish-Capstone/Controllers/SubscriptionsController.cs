@@ -116,15 +116,13 @@ namespace DCC_Parish_Capstone.Controllers
             return View(subscription);
         }
 
-        // POST: Subscriptions/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        // POST: Subscriptions/Delete/5 
         public ActionResult DeleteConfirmed(int id)
         {
             Subscription subscription = db.Subscriptions.Find(id);
             db.Subscriptions.Remove(subscription);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("UserPortal", "Manage", null);
         }
 
         protected override void Dispose(bool disposing)
