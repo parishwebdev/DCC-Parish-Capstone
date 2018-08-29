@@ -56,6 +56,9 @@ namespace DCC_Parish_Capstone.Controllers
 
                 db.Subscriptions.Add(subscription);
                 db.SaveChanges();
+
+                UpdateAddUserPoints(5, subscription.AspNetUserId);
+
                 return RedirectToAction("UserPortal","Manage", null);
             }
 
@@ -122,8 +125,85 @@ namespace DCC_Parish_Capstone.Controllers
             Subscription subscription = db.Subscriptions.Find(id);
             db.Subscriptions.Remove(subscription);
             db.SaveChanges();
+
+            UpdateMinusUserPoints(3, subscription.AspNetUserId);
+
             return RedirectToAction("UserPortal", "Manage", null);
         }
+
+
+
+        public void UpdateAddUserPoints(int numPtsToAdd, string userIdToAddPtsTo)
+        {
+            //Extract to InitUserObject
+            var userId = userIdToAddPtsTo;
+            var loggedInUser = db.Users.Include(u => u.Rank).Where(u => u.Id == userId).Single();
+
+            loggedInUser.Points += numPtsToAdd;
+            db.SaveChanges();
+
+            //Extract to EvaluateRank
+            if (loggedInUser.Points >= 0 && loggedInUser.Points <= 49)
+            {
+                loggedInUser.RankId = 1;
+                db.SaveChanges();
+            }
+            else if (loggedInUser.Points >= 50 && loggedInUser.Points <= 149)
+            {
+                loggedInUser.RankId = 2;
+                db.SaveChanges();
+            }
+            else if (loggedInUser.Points >= 150 && loggedInUser.Points >= 299)
+            {
+                loggedInUser.RankId = 3;
+                db.SaveChanges();
+
+            }
+            else if (loggedInUser.Points >= 300)
+            {
+                loggedInUser.RankId = 4;
+                db.SaveChanges();
+
+            }
+
+        }
+
+        public void UpdateMinusUserPoints(int numPtsToMinus, string userIdToAddPtsTo)
+        {
+            //Extract to InitUserObject
+            var userId = userIdToAddPtsTo;
+            var loggedInUser = db.Users.Include(u => u.Rank).Where(u => u.Id == userId).Single();
+
+            loggedInUser.Points -= numPtsToMinus;
+            db.SaveChanges();
+
+            //Extract to EvaluateRank
+            if (loggedInUser.Points >= 0 && loggedInUser.Points <= 49)
+            {
+                loggedInUser.RankId = 1;
+                db.SaveChanges();
+            }
+            else if (loggedInUser.Points >= 50 && loggedInUser.Points <= 149)
+            {
+                loggedInUser.RankId = 2;
+                db.SaveChanges();
+            }
+            else if (loggedInUser.Points >= 150 && loggedInUser.Points >= 299)
+            {
+                loggedInUser.RankId = 3;
+                db.SaveChanges();
+
+            }
+            else if (loggedInUser.Points >= 300)
+            {
+                loggedInUser.RankId = 4;
+                db.SaveChanges();
+
+            }
+
+        }
+
+
 
         protected override void Dispose(bool disposing)
         {

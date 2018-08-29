@@ -44,7 +44,7 @@ namespace DCC_Parish_Capstone.Controllers
             foreach (var item in articles)
             {
                 var articleUserId = item.AspNetUserId;
-                articles.ElementAt(i).ArticleAuthor = db.Users.Where(u => u.Id == articleUserId).Single();
+                articles.ElementAt(i).ArticleAuthor = db.Users.Include(u => u.Rank).Where(u => u.Id == articleUserId).Single();
                 i++;
             }
         }
@@ -61,7 +61,7 @@ namespace DCC_Parish_Capstone.Controllers
              
             aUCVM.Article = db.Articles.Include(a => a.BestPractice).Include(a => a.Language).Single(a => a.Id == id);
             var articleUserId = aUCVM.Article.AspNetUserId;
-            aUCVM.Article.ArticleAuthor = db.Users.Where(u => u.Id == articleUserId).Single();
+            aUCVM.Article.ArticleAuthor = db.Users.Include(u => u.Rank).Where(u => u.Id == articleUserId).Single();
 
 
             aUCVM.Comments = db.Comments.Where(c => c.ArticleId == aUCVM.Article.Id);
@@ -82,37 +82,91 @@ namespace DCC_Parish_Capstone.Controllers
             foreach (var item in comments)
             {
                 var commentUserId = item.AspNetUserId;
-                comments.ElementAt(i).CommentAuthor = db.Users.Where(u => u.Id == commentUserId).Single(); 
+                comments.ElementAt(i).CommentAuthor = db.Users.Include(u => u.Rank).Where(u => u.Id == commentUserId).Single(); 
                 i++;
             }
         }
 
 
+        //HERE
         public ActionResult UpvoteArticle(int articleId)
         {
             
             Article article = db.Articles.Find(articleId);
             article.UpVotes += 1;
             db.SaveChanges();
-             
+
+            var userId = GetCurrentLoggedInUserId();
+            UpdateUserPoints(5, userId);
+
             return RedirectToAction("Details", new { id = article.Id });
         }
+        //HERE
         public ActionResult DownvoteArticle(int articleId)
         {
             Article article = db.Articles.Find(articleId);
             article.DownVotes += 1;
             db.SaveChanges();
+
+            var userId = GetCurrentLoggedInUserId();
+            UpdateUserPoints(5, userId);
+
             return RedirectToAction("Details", new { id = article.Id });
+        }
+
+        //here  (look to see if implented anywhere else)
+        private String GetCurrentLoggedInUserId()
+        {
+            var userId = User.Identity.GetUserId(); 
+            return userId;
         }
 
         public ActionResult TopArticles()
         {
-            var topArticles = db.Articles.Include(a => a.BestPractice).Include(a => a.Language).OrderByDescending(a => a.UpVotes).OrderBy(a => a.DownVotes).Take(3);
+            var topArticles = db.Articles.Include(a => a.BestPractice).Include(a => a.Language).OrderByDescending(a => a.UpVotes).Take(3);
+
+            topArticles.OrderBy(a => a.DownVotes);
+
             SetArticleAuthors(topArticles);
 
             return View(topArticles);
         }
 
+        //HERE
+        public void UpdateUserPoints(int numPtsToAdd, string userIdToAddPtsTo)
+        {
+            //Extract to InitUserObject
+            var userId = userIdToAddPtsTo;
+            var loggedInUser = db.Users.Include(u => u.Rank).Where(u => u.Id == userId).Single();
+
+            loggedInUser.Points += numPtsToAdd;
+            db.SaveChanges();
+
+            //Extract to EvaluateRank
+            if (loggedInUser.Points >= 0 && loggedInUser.Points <= 49)
+            {
+                loggedInUser.RankId = 1;
+                db.SaveChanges();
+            }
+            else if (loggedInUser.Points >= 50 && loggedInUser.Points <= 149)
+            {
+                loggedInUser.RankId = 2;
+                db.SaveChanges();
+            }
+            else if (loggedInUser.Points >= 150 && loggedInUser.Points >= 299)
+            {
+                loggedInUser.RankId = 3;
+                db.SaveChanges();
+
+            }
+            else if (loggedInUser.Points >= 300)
+            {
+                loggedInUser.RankId = 4;
+                db.SaveChanges();
+
+            }
+
+        }
 
 
         // GET: Articles/Create
@@ -146,6 +200,7 @@ namespace DCC_Parish_Capstone.Controllers
             return View(article);
         }
 
+        //HERE
         private void TriggerArticleNotification(Article article)
         {
 
@@ -165,6 +220,7 @@ namespace DCC_Parish_Capstone.Controllers
 
         }
 
+        //HERE ? 
         private void CreateArticleNotificationForSubscription(Article article, Subscription subscription)
         {
             ArticleNotification articleNotification = new ArticleNotification();
@@ -176,6 +232,7 @@ namespace DCC_Parish_Capstone.Controllers
             db.ArticleNotifications.Add(articleNotification);
         }
 
+        //HERE ?
         private void InitArticle(Article article)
         {
             article.UpVotes = 0;
@@ -185,6 +242,9 @@ namespace DCC_Parish_Capstone.Controllers
             article.DateCreated = today;
 
             article.AspNetUserId = User.Identity.GetUserId();
+
+            //Points - Call addpts method
+            UpdateUserPoints(35, article.AspNetUserId);
         }
 
         // GET: Articles/Edit/5
@@ -245,8 +305,50 @@ namespace DCC_Parish_Capstone.Controllers
             Article article = db.Articles.Find(id);
             db.Articles.Remove(article);
             db.SaveChanges();
+
+            UpdateMinusUserPoints(18, GetCurrentLoggedInUserId());
+
             return RedirectToAction("Index");
         }
+
+
+        public void UpdateMinusUserPoints(int numPtsToMinus, string userIdToAddPtsTo)
+        {
+            //Extract to InitUserObject
+            var userId = userIdToAddPtsTo;
+            var loggedInUser = db.Users.Include(u => u.Rank).Where(u => u.Id == userId).Single();
+
+            loggedInUser.Points -= numPtsToMinus;
+            db.SaveChanges();
+
+            //Extract to EvaluateRank
+            if (loggedInUser.Points >= 0 && loggedInUser.Points <= 49)
+            {
+                loggedInUser.RankId = 1;
+                db.SaveChanges();
+            }
+            else if (loggedInUser.Points >= 50 && loggedInUser.Points <= 149)
+            {
+                loggedInUser.RankId = 2;
+                db.SaveChanges();
+            }
+            else if (loggedInUser.Points >= 150 && loggedInUser.Points >= 299)
+            {
+                loggedInUser.RankId = 3;
+                db.SaveChanges();
+
+            }
+            else if (loggedInUser.Points >= 300)
+            {
+                loggedInUser.RankId = 4;
+                db.SaveChanges();
+
+            }
+
+        }
+
+
+
 
 
         public ActionResult ArticlesByLanguageandBestPractice(int LangId, int BestPractId)
@@ -267,6 +369,7 @@ namespace DCC_Parish_Capstone.Controllers
 
         }
 
+        //HERE ? 
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult SubmitAction(string html,string articleName)
@@ -294,6 +397,7 @@ namespace DCC_Parish_Capstone.Controllers
 
         }
 
+        //HERE ?  
         [ValidateInput(false)]
         public ActionResult SendEmail(string to, string html, string articleTitle, int articleId)
         {
@@ -320,7 +424,7 @@ namespace DCC_Parish_Capstone.Controllers
             smtp.Send(m);
 
 
-
+            //keep but extract to new helper ^
             return RedirectToAction("Details", new { id = articleId });
         }
 

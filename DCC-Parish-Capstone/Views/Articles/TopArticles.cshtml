@@ -4,7 +4,7 @@
     ViewBag.Title = "TopArticles";
 }
 
-<h2 class="text-center">Top Articles</h2>
+<h2 class="text-center">Top Upv<i class="far text-dark fa-arrow-alt-circle-up fa-xs"></i>ted Articles</h2>
 
 
 <div class="row ">
@@ -15,7 +15,21 @@
 
                 <h4 class="mt-2 "> @Html.DisplayFor(modelItem => item.Title) </h4>
                 <p>
-                    <span class="text-size-90 "> @Html.DisplayFor(modelItem => item.ArticleAuthor.Nickname) |  <span class="text-bold">@Html.DisplayFor(modelItem => item.UpVotes)</span> <i class="fas fa-arrow-alt-circle-up text-warning"></i>  | @Html.DisplayFor(modelItem => item.DownVotes) <i class="fas fa-arrow-alt-circle-down"></i>  |   @Html.DisplayFor(modelItem => item.DateCreated) </span>
+                    <span class="text-size-90 ">
+                          
+                        <a tabindex="0"
+                           id="comPop-@Html.DisplayFor(modelItem => item.ArticleAuthor.Id)"
+                           class="text-white"
+                           role="button"
+                           data-html="true"
+                           data-toggle="popover"
+                           data-trigger="focus"
+                           title="<span><b>UserName</b> - @Html.DisplayFor(modelItem => item.ArticleAuthor.Nickname)</span>"
+                           data-content="<div><b>Rank</b> - @Html.DisplayFor(modelItem => item.ArticleAuthor.Rank.Name)</div>  <div><b>Points</b> - @Html.DisplayFor(modelItem => item.ArticleAuthor.Points)</div>">@Html.DisplayFor(modelItem => item.ArticleAuthor.Nickname)</a>
+
+
+                        |  <span class="text-bold">@Html.DisplayFor(modelItem => item.UpVotes)</span> <i class="fas fa-arrow-alt-circle-up text-warning"></i>  | @Html.DisplayFor(modelItem => item.DownVotes) <i class="fas fa-arrow-alt-circle-down"></i>  |   @Html.DisplayFor(modelItem => item.DateCreated)
+                    </span>
                     <br />
                     <span class="  text-size-85"> @Html.DisplayFor(modelItem => item.Language.Name) | @Html.DisplayFor(modelItem => item.BestPractice.Name) </span>
                 </p>
@@ -36,3 +50,12 @@
         </div>
     }
 </div>
+
+@section scripts {
+    <script>
+        $(function () {
+            // Enables popover
+            $("[data-toggle=popover]").popover();
+        });
+    </script>
+}

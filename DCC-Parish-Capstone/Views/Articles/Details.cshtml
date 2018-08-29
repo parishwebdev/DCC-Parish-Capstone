@@ -30,7 +30,14 @@
             <div class="col-md-8 ">
                 <span class="text-muted text-size-95">
                     @Html.DisplayNameFor(model => model.Article.DateCreated): @Html.DisplayFor(model => model.Article.DateCreated) |
-                    Author: @Html.DisplayFor(model => model.Article.ArticleAuthor.Nickname)
+                    Author: <a tabindex="0"
+                       class=""
+                       role="button"
+                       data-html="true"
+                       data-toggle="popover"
+                       data-trigger="focus"
+                       title="<b>UserName</b> - @Html.DisplayFor(model => model.Article.ArticleAuthor.Nickname)"
+                       data-content="<div><b>Rank</b> - @Html.DisplayFor(model => model.Article.ArticleAuthor.Rank.Name)</div>  <div><b>Points</b> - @Html.DisplayFor(model => model.Article.ArticleAuthor.Points)</div>">@Html.DisplayFor(model => model.Article.ArticleAuthor.Nickname)</a>
                 </span>
             </div>
 
@@ -96,7 +103,7 @@
 <hr />
 <div class="row">
     <h4 class="col-md-12"><i class="far fa-share-square"></i> Sharing</h4>
-     
+
     <div class="col-md-4">
 
 
@@ -167,7 +174,18 @@
         <li class="list-group-item row" style="display: inherit !important;">
             <div class="col-md-3">
                 <h5>@Html.DisplayNameFor(model => model.Comment.CommentAuthor.Nickname)</h5>
-                <p>@Html.DisplayFor(modelItem => item.CommentAuthor.Nickname) </p>
+                <p>
+                
+                    <a tabindex="0"
+                       id="comPop-@Html.DisplayFor(modelItem => item.Id)"
+                       class=""
+                       role="button"
+                       data-html="true"
+                       data-toggle="popover"
+                       data-trigger="focus"
+                       title="<span><b>UserName</b> - @Html.DisplayFor(modelItem => item.CommentAuthor.Nickname)</span>"
+                       data-content="<div><b>Rank</b> - @Html.DisplayFor(modelItem => item.CommentAuthor.Rank.Name)</div>  <div><b>Points</b> - @Html.DisplayFor(modelItem => item.CommentAuthor.Points)</div>">@Html.DisplayFor(modelItem => item.CommentAuthor.Nickname)</a>
+               </p>
             </div>
 
             <div class="col-md-5">
@@ -238,7 +256,20 @@
                             <li class="list-group-item row" style="display: inherit !important;">
                                 <div class="col-md-3">
                                     <h5>@Html.DisplayNameFor(model => model.Comment.CommentAuthor.Nickname)</h5>
-                                    <p>@Html.DisplayFor(modelItem => subitem.CommentAuthor.Nickname) </p>
+                                    <p>                                
+                                     <a tabindex="0"
+                                       id="comRepPop-@Html.DisplayNameFor(modelItem => subitem.Id)"
+                                       class=""
+                                       role="button"
+                                       data-html="true"
+                                       data-toggle="popover"
+                                       data-trigger="focus"
+                                       title="<span><b>UserName</b> - @Html.DisplayFor(modelItem => subitem.CommentAuthor.Nickname)</span>"
+                                       data-content="<div><b>Rank</b> - @Html.DisplayFor(modelItem => subitem.CommentAuthor.Rank.Name)</div>  <div><b>Points</b> - @Html.DisplayFor(modelItem => subitem.CommentAuthor.Points)</div>">@Html.DisplayFor(modelItem => subitem.CommentAuthor.Nickname)
+                                    </a>
+                                    
+                                    
+                                    </p>
                                 </div>
 
                                 <div class="col-md-5">
@@ -280,4 +311,11 @@
 
 @section scripts {
     <script src="~/Scripts/HighlightFunctions.js"></script>
+
+    <script>
+        $(function () {
+            // Enables popover
+            $("[data-toggle=popover]").popover();
+        });
+    </script>
 }

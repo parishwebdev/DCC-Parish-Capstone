@@ -418,7 +418,8 @@ namespace DCC_Parish_Capstone.Controllers
             SetCommentAuthors(commentNotifications);
             SetCommentArticles(commentNotifications);
         }
-         
+
+        //HERE v
         private void SetComments(IEnumerable<CommentNotification> commentNotifications)
         {
             int i = 0;
@@ -463,26 +464,7 @@ namespace DCC_Parish_Capstone.Controllers
 
 
         }
-
-        //private void SetSubscriptionArticles(IEnumerable<Subscription> subscriptions)
-        //{
-
-        //    foreach(var sub in subscriptions)
-        //    {
-        //        if (sub.BestPracticeSub.Id != 12)
-        //        {
-        //            sub.SubscriptionArticles = db.Articles.Where(a => a.LanguageId == sub.LanguageId).Where(a => a.BestPracticeId == sub.BestPracticeId);
-        //        }
-        //        else
-        //        {
-        //            sub.SubscriptionArticles = db.Articles.Where(a => a.LanguageId == sub.LanguageId);
-        //        }
-        //    }
-
-        //}
-
-       
-
+        
         #endregion
 
 

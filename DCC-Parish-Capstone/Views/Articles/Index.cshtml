@@ -11,35 +11,58 @@
     {
         <a href="@Url.Action("Create", "Articles")" class="btn btn-outline-primary ">Create Article &nbsp; <i class="fas fa-plus-square"></i></a>
     }
-</p> 
+</p>
 
 <div class="row ">
     @foreach (var item in Model)
     {
         double totalVotes = item.UpVotes + item.DownVotes;
-    <div class="col-md-6">
-        <div class="list-group-item my-2 @if (item.DownVotes > 10 && (item.UpVotes / totalVotes) < 0.50 ) { @Html.DisplayName("downVotedArticle") } ">
+        <div class="col-md-6">
+            <div class="list-group-item my-2 @if (item.DownVotes > 10 && (item.UpVotes / totalVotes) < 0.50 ) { @Html.DisplayName("downVotedArticle") } ">
 
-            <h4 class="mt-2"> @Html.DisplayFor(modelItem => item.Title) </h4>
-            <p>
-               <span class="text-size-90 "> @Html.DisplayFor(modelItem => item.ArticleAuthor.Nickname) |  @Html.DisplayFor(modelItem => item.UpVotes) <i class="fas fa-arrow-alt-circle-up"></i>  | @Html.DisplayFor(modelItem => item.DownVotes) <i class="fas fa-arrow-alt-circle-down"></i>  |   @Html.DisplayFor(modelItem => item.DateCreated) </span>
-                <br />
-                <span class="text-muted text-size-85"> @Html.DisplayFor(modelItem => item.Language.Name) | @Html.DisplayFor(modelItem => item.BestPractice.Name) </span>
-            </p>
+                <h4 class="mt-2"> @Html.DisplayFor(modelItem => item.Title) </h4>
+                <p>
+                    <span class="text-size-90 ">
 
-            <p class="text-truncate">@Html.DisplayFor(modelItem => item.Body)</p>
-            <p>
-                <a href="@Url.Action("Details", "Articles", new { id = item.Id })" class="btn btn-outline-primary ">View Article <i class="fas fa-chevron-circle-right"></i></a>
+                        <a tabindex="0"
+                           id="comPop-@Html.DisplayFor(modelItem => item.ArticleAuthor.Id)"
+                           class=""
+                           role="button"
+                           data-html="true"
+                           data-toggle="popover"
+                           data-trigger="focus"
+                           title="<span><b>UserName</b> - @Html.DisplayFor(modelItem => item.ArticleAuthor.Nickname)</span>"
+                           data-content="<div><b>Rank</b> - @Html.DisplayFor(modelItem => item.ArticleAuthor.Rank.Name)</div>  <div><b>Points</b> - @Html.DisplayFor(modelItem => item.ArticleAuthor.Points)</div>">@Html.DisplayFor(modelItem => item.ArticleAuthor.Nickname)</a>
 
-                &nbsp;
-                @if (item.AspNetUserId == User.Identity.GetUserId())
-                {
-                    <a href="@Url.Action("Edit", "Articles", new { id = item.Id })" class="btn btn-outline-primary ">Edit Article <i class="fas fa-edit"></i></a>
-                    <a href="@Url.Action("Delete", "Articles", new { id = item.Id })" class="btn btn-outline-primary ">Delete Article <i class="fas fa-trash-alt"></i></a>
-                }
-            </p>
 
+                        |  @Html.DisplayFor(modelItem => item.UpVotes) <i class="fas fa-arrow-alt-circle-up"></i>  | @Html.DisplayFor(modelItem => item.DownVotes) <i class="fas fa-arrow-alt-circle-down"></i>  |   @Html.DisplayFor(modelItem => item.DateCreated)
+                    </span>
+                    <br />
+                    <span class="text-muted text-size-85"> @Html.DisplayFor(modelItem => item.Language.Name) | @Html.DisplayFor(modelItem => item.BestPractice.Name) </span>
+                </p>
+
+                <p class="text-truncate">@Html.DisplayFor(modelItem => item.Body)</p>
+                <p>
+                    <a href="@Url.Action("Details", "Articles", new { id = item.Id })" class="btn btn-outline-primary ">View Article <i class="fas fa-chevron-circle-right"></i></a>
+
+                    &nbsp;
+                    @if (item.AspNetUserId == User.Identity.GetUserId())
+                    {
+                        <a href="@Url.Action("Edit", "Articles", new { id = item.Id })" class="btn btn-outline-primary ">Edit Article <i class="fas fa-edit"></i></a>
+                        <a href="@Url.Action("Delete", "Articles", new { id = item.Id })" class="btn btn-outline-primary ">Delete Article <i class="fas fa-trash-alt"></i></a>
+                    }
+                </p>
+
+            </div>
         </div>
-    </div>
     }
 </div>
+
+@section scripts { 
+    <script>
+        $(function () {
+            // Enables popover
+            $("[data-toggle=popover]").popover();
+        });
+    </script>
+}
