@@ -151,3 +151,4 @@ C:\Users\Matthew_2\source\repos\DCC\Parish-Capstone\DCC-Parish-Capstone\DCC-Pari
 C:\Users\Matthew_2\source\repos\DCC\Parish-Capstone\DCC-Parish-Capstone\DCC-Parish-Capstone\obj\Debug\DCC_Parish_Capstone.Migrations.seedbpcorrectthistime.resources
 C:\Users\Matthew_2\source\repos\DCC\Parish-Capstone\DCC-Parish-Capstone\DCC-Parish-Capstone\obj\Debug\DCC_Parish_Capstone.Migrations.minusnotificationsaddarticlenotications.resources
 C:\Users\Matthew_2\source\repos\DCC\Parish-Capstone\DCC-Parish-Capstone\DCC-Parish-Capstone\obj\Debug\DCC_Parish_Capstone.Migrations.addsubtoartnotific.resources
+C:\Users\Matthew_2\source\repos\DCC\Parish-Capstone\DCC-Parish-Capstone\DCC-Parish-Capstone\obj\Debug\DCC_Parish_Capstone.Migrations.SeedBadgeschangeuserbadgeaspnetuseridtostring.resources

@@ -37,7 +37,7 @@
                        data-toggle="popover"
                        data-trigger="focus"
                        title="<b>UserName</b> - @Html.DisplayFor(model => model.Article.ArticleAuthor.Nickname)"
-                       data-content="<div><b>Rank</b> - @Html.DisplayFor(model => model.Article.ArticleAuthor.Rank.Name)</div>  <div><b>Points</b> - @Html.DisplayFor(model => model.Article.ArticleAuthor.Points)</div>">@Html.DisplayFor(model => model.Article.ArticleAuthor.Nickname)</a>
+                       data-content="<div><b>Rank</b> - @Html.DisplayFor(model => model.Article.ArticleAuthor.Rank.Name)</div>  <div><b>Points</b> - @Html.DisplayFor(model => model.Article.ArticleAuthor.Points)</div> <div> <b>Badges Earned</b> - @Model.Article.ArticleAuthor.EarnedBagdges.Count()  </div>">@Html.DisplayFor(model => model.Article.ArticleAuthor.Nickname)</a>
                 </span>
             </div>
 
@@ -184,7 +184,7 @@
                        data-toggle="popover"
                        data-trigger="focus"
                        title="<span><b>UserName</b> - @Html.DisplayFor(modelItem => item.CommentAuthor.Nickname)</span>"
-                       data-content="<div><b>Rank</b> - @Html.DisplayFor(modelItem => item.CommentAuthor.Rank.Name)</div>  <div><b>Points</b> - @Html.DisplayFor(modelItem => item.CommentAuthor.Points)</div>">@Html.DisplayFor(modelItem => item.CommentAuthor.Nickname)</a>
+                       data-content="<div><b>Rank</b> - @Html.DisplayFor(modelItem => item.CommentAuthor.Rank.Name)</div>  <div><b>Points</b> - @Html.DisplayFor(modelItem => item.CommentAuthor.Points)</div>  <div> <b>Badges Earned</b> - @item.CommentAuthor.EarnedBagdges.Count()  </div>">@Html.DisplayFor(modelItem => item.CommentAuthor.Nickname)</a>
                </p>
             </div>
 
@@ -265,7 +265,7 @@
                                        data-toggle="popover"
                                        data-trigger="focus"
                                        title="<span><b>UserName</b> - @Html.DisplayFor(modelItem => subitem.CommentAuthor.Nickname)</span>"
-                                       data-content="<div><b>Rank</b> - @Html.DisplayFor(modelItem => subitem.CommentAuthor.Rank.Name)</div>  <div><b>Points</b> - @Html.DisplayFor(modelItem => subitem.CommentAuthor.Points)</div>">@Html.DisplayFor(modelItem => subitem.CommentAuthor.Nickname)
+                                       data-content="<div><b>Rank</b> - @Html.DisplayFor(modelItem => subitem.CommentAuthor.Rank.Name)</div>  <div><b>Points</b> - @Html.DisplayFor(modelItem => subitem.CommentAuthor.Points)</div>  <div> <b>Badges Earned</b> - @subitem.CommentAuthor.EarnedBagdges.Count()  </div>">@Html.DisplayFor(modelItem => subitem.CommentAuthor.Nickname)
                                     </a>
                                     
                                     

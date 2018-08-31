@@ -25,7 +25,7 @@
                            data-toggle="popover"
                            data-trigger="focus"
                            title="<span><b>UserName</b> - @Html.DisplayFor(modelItem => item.ArticleAuthor.Nickname)</span>"
-                           data-content="<div><b>Rank</b> - @Html.DisplayFor(modelItem => item.ArticleAuthor.Rank.Name)</div>  <div><b>Points</b> - @Html.DisplayFor(modelItem => item.ArticleAuthor.Points)</div>">@Html.DisplayFor(modelItem => item.ArticleAuthor.Nickname)</a>
+                           data-content="<div><b>Rank</b> - @Html.DisplayFor(modelItem => item.ArticleAuthor.Rank.Name)</div>  <div><b>Points</b> - @Html.DisplayFor(modelItem => item.ArticleAuthor.Points)</div> <div> <b>Badges Earned</b> - @item.ArticleAuthor.EarnedBagdges.Count()  </div>">@Html.DisplayFor(modelItem => item.ArticleAuthor.Nickname)</a>
 
 
                         |  <span class="text-bold">@Html.DisplayFor(modelItem => item.UpVotes)</span> <i class="fas fa-arrow-alt-circle-up text-warning"></i>  | @Html.DisplayFor(modelItem => item.DownVotes) <i class="fas fa-arrow-alt-circle-down"></i>  |   @Html.DisplayFor(modelItem => item.DateCreated)

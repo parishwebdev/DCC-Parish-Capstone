@@ -13,7 +13,7 @@ namespace DCC_Parish_Capstone.Models
         [Key]
         public int Id { get; set; }
 
-        public int AspNetUserId { get; set; }
+        public string AspNetUserId { get; set; }
 
         [ForeignKey("Badge")]
         [Display(Name = "Badge")]

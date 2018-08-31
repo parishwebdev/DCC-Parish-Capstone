@@ -56,6 +56,18 @@ namespace DCC_Parish_Capstone.Migrations
            );
 
 
+
+            //Badges
+            context.Badges.AddOrUpdate(
+             l => l.Name,
+             new Badge { Id = 1, Name = "On of your Articles was Upvoted 10 times, your writing is gaining some popularity" },
+             new Badge { Id = 2, Name = "On of your Articles was Upvoted 25 times, your writing is becoming a favorite" },
+             new Badge { Id = 3, Name = "On of your Articles was Upvoted 50 times, your writing is up the there amoung the greats" },
+             new Badge { Id = 4, Name = "On of your Articles was Commented on 5 times, people are starting to talk about your article" },
+             new Badge { Id = 5, Name = "On of your Articles was Commented on 10 times, your article is gain some discussion" },
+             new Badge { Id = 6, Name = "On of your Articles was Commented on 25 times, people seem to be talking a lot about your article" }
+           );
+
         }
     }
 }

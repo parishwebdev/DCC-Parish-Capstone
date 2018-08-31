@@ -404,6 +404,7 @@ namespace DCC_Parish_Capstone.Controllers
 
             uPVM.subscriptions = db.Subscriptions.Include(s => s.BestPracticeSub).Include(s => s.Language).Where(sub => sub.AspNetUserId == uPVM.CurrentWebDev.Id);
 
+            uPVM.CurrentWebDev.EarnedBagdges = db.UserBadges.Include(ub => ub.Badge).Where(ub => ub.AspNetUserId == uPVM.CurrentWebDev.Id);
 
             SetCommentNotificationCommentsAuthorsArticles(uPVM.commentNotifications);
             SetSubscriptionArticleNotification(uPVM.subscriptions);

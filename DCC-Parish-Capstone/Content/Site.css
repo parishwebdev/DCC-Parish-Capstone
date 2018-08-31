@@ -1,6 +1,51 @@
-﻿#lanBPTabs .tab-content {
+﻿
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~ */
+@media  (min-width: 525px) {
+    
+        
+ 
+#lanBPTabs .nav-item {
     border: 1px solid #dee2e6 !important;
+    margin: 0.25rem;
 }
+#lanBPTabs .nav-tabs {
+    border: none;
+}
+#lanBPTabs .nav.nav-tabs {
+    float: left;
+    display: block;
+    margin-right: 20px;
+    padding-right: 15px;
+}
+
+#lanBPTabs .nav-tabs .nav-link {
+    border: 1px solid transparent; 
+}
+
+    #lanBPTabs .nav-tabs .nav-link.active { 
+        border-color: transparent !important;
+    }
+
+#lanBPTabs  .nav-tabs .nav-link {
+    border: 1px solid transparent; 
+}
+
+#lanBPTabs .tab-content > .active {
+    display: block; 
+    min-height: 165px;
+}
+
+#lanBPTabs .nav.nav-tabs {
+    float: left;
+    display: block;
+    margin-right: 20px;
+    border-right: 1px solid transparent;
+    padding-right: 15px;
+}
+}
+/* ~~~~~~~~~~~~~~~~~~~~~~~ */
+
 .sp-v-align {
     position: relative;
     top: 50%;

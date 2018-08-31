@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Security.Claims;
@@ -20,6 +21,9 @@ namespace DCC_Parish_Capstone.Models
         [Display(Name = "Rank")]
         public int RankId { get; set; }
         public Rank Rank { get; set; }
+
+        public IEnumerable<UserBadge> EarnedBagdges { get; set; }
+
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

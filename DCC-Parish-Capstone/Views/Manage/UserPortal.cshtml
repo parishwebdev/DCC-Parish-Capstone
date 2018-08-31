@@ -34,7 +34,7 @@
                 <div class="card text-center col-md-12 p-0">
                     <div class="card-header bg-primary text-white">
                         <div class="col-md-12">
-                            <h3>Notifications</h3>
+                            <h3>Notifications <i class="far fa-bell"></i></h3>
                         </div>
                     </div>
                     <div class="card-body row">
@@ -161,4 +161,30 @@
             </div>
         </div>
     </div>
- 
+<br />
+<div class="row mt-2"> 
+    <div class="card text-center col-md-12 p-0">
+        <div class="card-header bg-primary text-white">
+            <div class="col-md-12">
+                <h3>Badges <i class="far fa-id-badge"></i></h3>
+            </div>
+        </div>
+        <div class="card-body row text-center">
+            @if (Model.CurrentWebDev.EarnedBagdges.Count() > 0)
+            {
+                foreach (var userBadge in Model.CurrentWebDev.EarnedBagdges)
+                {
+                    <p class="badge badge-pill badge-primary mx-auto">@userBadge.Badge.Name</p>
+                }
+            }
+            else
+            {
+                <p class="badge badge-pill badge-primary mx-auto"> No Badges Earned Yet </p>
+            }
+
+            </div>
+        <div class="bg-primary p-2 text-white">
+            <br />
+        </div>
+    </div>
+</div>

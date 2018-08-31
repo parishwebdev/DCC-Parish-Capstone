@@ -59,15 +59,66 @@ namespace DCC_Parish_Capstone.Controllers
 
                 UpdateUserPoints(10, comment.AspNetUserId);
 
-
                 db.Comments.Add(comment);
                 db.SaveChanges();
+
+                EvaulateCommentBadgeEarned(comment.ArticleId);
 
                 TriggerCommentNotification(comment);
                 return RedirectToAction("Details", "Articles", new { id = comment.ArticleId });
             }
              
             return RedirectToAction("Details", "Articles", new { id = ArticleId });
+        }
+
+
+        private void EvaulateCommentBadgeEarned(int articleId)
+        {
+
+            Article article = GetCommentArticle(articleId);
+            int commentCount = GetCommentNumberOfFromArticle(article);
+
+            if (commentCount >= 5 && commentCount <= 9)
+            {
+                AssignBadgeToUser(article.AspNetUserId, 4 , 5);
+            }
+            else if (commentCount >= 10 && commentCount <= 24)
+            {
+                AssignBadgeToUser(article.AspNetUserId, 5, 10);
+            }
+            else if (commentCount >= 25)
+            {
+                AssignBadgeToUser(article.AspNetUserId, 6, 15);
+            }
+
+        }
+
+        private void AssignBadgeToUser(string userId, int badgeid, int potienallyPtsEarned)
+        {
+            
+            var badgesByUserId = db.UserBadges.Where(ub => ub.AspNetUserId == userId);
+
+            if (badgesByUserId.Count() > 0) {
+                //foreach (var item in badgesByUserId)
+                for (int i = 0; i < badgesByUserId.Count(); i++)
+                {
+                    if (badgesByUserId.All(ub => ub.BadgeId != badgeid))
+                    {
+                        UserBadge commentBadge = new UserBadge();
+                        commentBadge.AspNetUserId = userId;
+                        commentBadge.BadgeId = badgeid;
+
+                        
+
+                        db.UserBadges.Add(commentBadge);
+                        db.SaveChanges();
+                        UpdateUserPoints(potienallyPtsEarned, userId);
+                        break;
+                    }
+                }
+               
+            } 
+
         }
 
         //HERE ? 
@@ -85,6 +136,16 @@ namespace DCC_Parish_Capstone.Controllers
         {
             Article article = db.Articles.Find(articleid);
             return article.AspNetUserId;
+        }
+        private Article GetCommentArticle(int articleid)
+        {
+            Article article = db.Articles.Find(articleid);
+            return article;
+        }
+        private int GetCommentNumberOfFromArticle(Article article)
+        {
+            int commentCount = db.Comments.Where(c => c.ArticleId == article.Id).Count();
+            return commentCount;
         }
 
         //HERE ?  
@@ -105,7 +166,6 @@ namespace DCC_Parish_Capstone.Controllers
             var loggedInUser = db.Users.Include(u => u.Rank).Where(u => u.Id == userId).Single();
 
             loggedInUser.Points += numPtsToAdd;
-            db.SaveChanges();
 
             //Extract to EvaluateRank
             if (loggedInUser.Points >= 0 && loggedInUser.Points <= 49)
@@ -118,7 +178,7 @@ namespace DCC_Parish_Capstone.Controllers
                 loggedInUser.RankId = 2;
                 db.SaveChanges();
             }
-            else if (loggedInUser.Points >= 150 && loggedInUser.Points >= 299)
+            else if (loggedInUser.Points >= 150 && loggedInUser.Points <= 299)
             {
                 loggedInUser.RankId = 3;
                 db.SaveChanges();
@@ -130,14 +190,16 @@ namespace DCC_Parish_Capstone.Controllers
                 db.SaveChanges();
 
             }
+            else
+            {
+
+                db.SaveChanges();
+            }
+
+
 
         }
-
-
-
-
-
-
+         
 
 
         // GET: Comments/Edit/5
@@ -193,12 +255,60 @@ namespace DCC_Parish_Capstone.Controllers
         public ActionResult DeleteConfirmed(int id, int articleid)
         {
             Comment comment = db.Comments.Find(id);
+                         
+            EvaulateCommentBadgeUnEarned(comment.ArticleId);
+
             db.Comments.Remove(comment);
             db.SaveChanges();
 
-            UpdateMinusUserPoints(18, GetCurrentLoggedInUserId());
+            UpdateMinusUserPoints(5, GetCurrentLoggedInUserId());
 
             return RedirectToAction("Details", "Articles", new { id = articleid });
+        }
+
+        private void EvaulateCommentBadgeUnEarned(int articleId)
+        {
+
+            Article article = GetCommentArticle(articleId);
+            int commentCount = GetCommentNumberOfFromArticle(article);
+
+            if (commentCount == 5)
+            {
+                UnAssignBadgeToUser(article.AspNetUserId, 4);
+            }
+            else if (commentCount == 10)
+            {
+                UnAssignBadgeToUser(article.AspNetUserId, 5);
+            }
+            else if (commentCount == 25)
+            {
+                UnAssignBadgeToUser(article.AspNetUserId, 6);
+            }
+
+        }
+        private void UnAssignBadgeToUser(string userId, int badgeid)
+        {
+             
+            var badgesByUserId = db.UserBadges.Where(ub => ub.AspNetUserId == userId);
+
+            if (badgesByUserId.Count() > 0)
+            {
+                foreach (var item in badgesByUserId)
+                {
+                    if (badgesByUserId.Any(ub => ub.BadgeId == badgeid))
+                    {
+                        UserBadge userBadge = db.UserBadges.Where(ub => ub.AspNetUserId == userId).Where(ub => ub.BadgeId == badgeid).Single();
+                        db.UserBadges.Remove(userBadge);
+
+                         
+                        break;
+                    }
+                }
+                UpdateMinusUserPoints(10, userId);
+                db.SaveChanges();
+            }
+
+
         }
 
 
@@ -216,8 +326,7 @@ namespace DCC_Parish_Capstone.Controllers
             var userId = userIdToAddPtsTo;
             var loggedInUser = db.Users.Include(u => u.Rank).Where(u => u.Id == userId).Single();
 
-            loggedInUser.Points -= numPtsToMinus;
-            db.SaveChanges();
+            loggedInUser.Points -= numPtsToMinus; 
 
             //Extract to EvaluateRank
             if (loggedInUser.Points >= 0 && loggedInUser.Points <= 49)
@@ -230,7 +339,7 @@ namespace DCC_Parish_Capstone.Controllers
                 loggedInUser.RankId = 2;
                 db.SaveChanges();
             }
-            else if (loggedInUser.Points >= 150 && loggedInUser.Points >= 299)
+            else if (loggedInUser.Points >= 150 && loggedInUser.Points <= 299)
             {
                 loggedInUser.RankId = 3;
                 db.SaveChanges();
@@ -241,6 +350,11 @@ namespace DCC_Parish_Capstone.Controllers
                 loggedInUser.RankId = 4;
                 db.SaveChanges();
 
+            }
+            else
+            {
+
+                db.SaveChanges();
             }
 
         }
