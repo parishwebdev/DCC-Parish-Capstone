@@ -2,7 +2,7 @@
     ViewBag.Title = "Home Page";
 }
 
-<div id="homeJumbotron" class="jumbotron mt-5">
+<div id="homeJumbotron" class="jumbotron mt-4">
     <div id="innerJumbotron" class="p-3">
         <h1>Best Practice Wiki</h1>
         <p class="lead">Web App, for view best practices for coding.</p>
@@ -13,20 +13,19 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row mb-4">
     <div class="col-md-4">
 
         <div class="card bg-primary text-white">
             <div class="card-header text-center">
-                <h3>View Top Articles</h3>
+                <h3>View Top Upvoted Articles</h3>
             </div>
-            <div class="card-body text-center">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <div class="card-body text-center"> 
+                <p class="card-text py-4">View the top articles that the community has deemed some of the best!</p>
                 
             </div>
             <div class="card-footer text-muted text-right">
-                <a href="#" class="btn btn-outline-light">Go somewhere</a>
+                <a href="@Url.Action("TopArticles","Articles")" class="btn btn-outline-light">View Articles <i class="fas fa-chevron-circle-right"></i></a>
             </div>
         </div>
 
@@ -38,12 +37,11 @@
                 <h3>Easily Find Articles To View</h3>
             </div>
             <div class="card-body text-center">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <p class="card-text py-4">Find articles easily, by having the ability to view article by language / best practice.</p>
 
             </div>
             <div class="card-footer text-muted text-right">
-                <a href="#" class="btn btn-outline-light">Go somewhere</a>
+                <a href="@Url.Action("IndexWithBestPractices","Languages")" class="btn btn-outline-light">View Articles <i class="fas fa-chevron-circle-right"></i></a>
             </div>
         </div> 
     </div>
@@ -53,13 +51,12 @@
             <div class="card-header text-center">
                 <h3>Gain Ranks By Participating</h3>
             </div>
-            <div class="card-body text-center">
-                <h5 class="card-title">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <div class="card-body text-center"> 
+                <p class="card-text">Whether it's by: writing a comment or article, subscribing to a topic you like, earning badges and even upvoting articles; earn points to boost your rank.</p>
 
             </div>
             <div class="card-footer text-muted  text-right">
-                <a href="#" class="btn btn-outline-light">Go somewhere</a>
+                <a href="@Url.Action("Index","Articles")" class="btn btn-outline-light">View Articles <i class="fas fa-chevron-circle-right"></i></a>
             </div>
         </div>
           
