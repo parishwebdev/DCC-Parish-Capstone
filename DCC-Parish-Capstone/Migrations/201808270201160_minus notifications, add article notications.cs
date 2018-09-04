@@ -20,7 +20,7 @@ namespace DCC_Parish_Capstone.Migrations
                         AspNetUserId = c.String(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Articles", t => t.ArticleId, cascadeDelete: false)
+                .ForeignKey("dbo.Articles", t => t.ArticleId, cascadeDelete: true)
                 .Index(t => t.ArticleId);
             
             DropTable("dbo.Notifications");

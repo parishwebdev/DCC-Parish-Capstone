@@ -22,9 +22,14 @@
 #lanBPTabs .nav-tabs .nav-link {
     border: 1px solid transparent; 
 }
+    #lanBPTabs .nav-tabs .nav-link:hover {
+        font-weight: bold;
+    }
 
-    #lanBPTabs .nav-tabs .nav-link.active { 
+    #lanBPTabs .nav-tabs .nav-link.active {
         border-color: transparent !important;
+        color: white !important;
+        background-color: #E46561 !important;
     }
 
 #lanBPTabs  .nav-tabs .nav-link {
