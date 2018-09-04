@@ -237,6 +237,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ArticleHelper.cs" />
+    <Compile Include="Helpers\ArticleNotificationHelper.cs" />
+    <Compile Include="Helpers\CommentHelper.cs" />
+    <Compile Include="Helpers\CommentNotificationHelper.cs" />
+    <Compile Include="Helpers\EmailHelper.cs" />
+    <Compile Include="Helpers\PdfHelper.cs" />
+    <Compile Include="Helpers\UserGamifyHelper.cs" />
+    <Compile Include="Helpers\UserPortalHelper.cs" />
     <Compile Include="Migrations\201808162235164_init mig.cs" />
     <Compile Include="Migrations\201808162235164_init mig.Designer.cs">
       <DependentUpon>201808162235164_init mig.cs</DependentUpon>

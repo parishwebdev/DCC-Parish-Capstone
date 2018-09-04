@@ -21,20 +21,7 @@ namespace DCC_Parish_Capstone.Controllers
             return View(articleNotifications.ToList());
         }
 
-        // GET: ArticleNotifications/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ArticleNotification articleNotification = db.ArticleNotifications.Find(id);
-            if (articleNotification == null)
-            {
-                return HttpNotFound();
-            }
-            return View(articleNotification);
-        }
+ 
 
         // GET: ArticleNotifications/Create
         public ActionResult Create()
@@ -63,55 +50,7 @@ namespace DCC_Parish_Capstone.Controllers
             return View(articleNotification);
         }
 
-        // GET: ArticleNotifications/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ArticleNotification articleNotification = db.ArticleNotifications.Find(id);
-            if (articleNotification == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.ArticleId = new SelectList(db.Articles, "Id", "Title", articleNotification.ArticleId);
-            ViewBag.SubscriptionId = new SelectList(db.Subscriptions, "Id", "AspNetUserId", articleNotification.SubscriptionId);
-            return View(articleNotification);
-        }
-
-        // POST: ArticleNotifications/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ArticleId,SubscriptionId,AspNetUserId")] ArticleNotification articleNotification)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(articleNotification).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.ArticleId = new SelectList(db.Articles, "Id", "Title", articleNotification.ArticleId);
-            ViewBag.SubscriptionId = new SelectList(db.Subscriptions, "Id", "AspNetUserId", articleNotification.SubscriptionId);
-            return View(articleNotification);
-        }
-
-        // GET: ArticleNotifications/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ArticleNotification articleNotification = db.ArticleNotifications.Find(id);
-            if (articleNotification == null)
-            {
-                return HttpNotFound();
-            }
-            return View(articleNotification);
-        }
+ 
 
         // POST: ArticleNotifications/Delete/5 
         public ActionResult DeleteConfirmed(int id)

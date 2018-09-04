@@ -10,6 +10,7 @@ using DCC_Parish_Capstone.Models;
 using System.Data.Entity;
 using DCC_Parish_Capstone.Models.ViewModels;
 using System.Collections.Generic;
+using DCC_Parish_Capstone.Helpers;
 
 namespace DCC_Parish_Capstone.Controllers
 {
@@ -390,12 +391,15 @@ namespace DCC_Parish_Capstone.Controllers
 
         #endregion
 
+
+        UserPortalHelper userPortalHelper = new UserPortalHelper();
+
 #region WebDevUserCode 
         public ActionResult UserPortal()
         {
             UserPortalViewModel uPVM = new UserPortalViewModel();
 
-            var userId = User.Identity.GetUserId();
+            var userId = User.Identity.GetUserId();  
             var loggedInUser = db.Users.Include(u => u.Rank).Where(u => u.Id == userId).Single();  
             uPVM.CurrentWebDev = loggedInUser; 
 
@@ -405,66 +409,13 @@ namespace DCC_Parish_Capstone.Controllers
             uPVM.subscriptions = db.Subscriptions.Include(s => s.BestPracticeSub).Include(s => s.Language).Where(sub => sub.AspNetUserId == uPVM.CurrentWebDev.Id);
 
             uPVM.CurrentWebDev.EarnedBagdges = db.UserBadges.Include(ub => ub.Badge).Where(ub => ub.AspNetUserId == uPVM.CurrentWebDev.Id);
-
-            SetCommentNotificationCommentsAuthorsArticles(uPVM.commentNotifications);
-            SetSubscriptionArticleNotification(uPVM.subscriptions);
+             
+            userPortalHelper.SetCommentNotificationCommentsAuthorsArticles(uPVM.commentNotifications, db);
+             
+            userPortalHelper.SetSubscriptionArticleNotification(uPVM.subscriptions, db);
 
             return View(uPVM);
-        }
-
-
-        private void SetCommentNotificationCommentsAuthorsArticles(IEnumerable<CommentNotification> commentNotifications)
-        {
-            SetComments(commentNotifications);
-            SetCommentAuthors(commentNotifications);
-            SetCommentArticles(commentNotifications);
-        }
-
-        //HERE v
-        private void SetComments(IEnumerable<CommentNotification> commentNotifications)
-        {
-            int i = 0;
-            foreach (var item in commentNotifications)
-            {
-                Comment comment = db.Comments.Find(item.CommentId);
-
-                commentNotifications.ElementAt(i).Comment = comment;
-                i++;
-            }
-        }
-        private void SetCommentAuthors(IEnumerable<CommentNotification> commentNotifications)
-        {
-            int i = 0;
-            foreach (var item in commentNotifications)
-            {
-                var commentUserId = item.Comment.AspNetUserId;
-                commentNotifications.ElementAt(i).Comment.CommentAuthor = db.Users.Where(u => u.Id == commentUserId).Single();
-                i++;
-            }
-        }
-        private void SetCommentArticles(IEnumerable<CommentNotification> commentNotifications)
-        {
-            int i = 0;
-            foreach (var item in commentNotifications)
-            {
-                var commentUserId = item.Comment.AspNetUserId;
-                var articleId = item.Comment.ArticleId;
-                commentNotifications.ElementAt(i).Comment.Article = db.Articles.Where(a => a.Id == articleId).Single();
-                i++;
-            }
-        }
-
-        private void SetSubscriptionArticleNotification(IEnumerable<Subscription> subscriptions)
-        {
-
-            foreach (var sub in subscriptions)
-            {
-                sub.SubscriptionArticleNotification = db.ArticleNotifications.Include(a => a.Article).Where(an => an.SubscriptionId == sub.Id).Where(an => an.AspNetUserId == sub.AspNetUserId);
-            }
-
-
-
-        }
+        } 
         
         #endregion
 

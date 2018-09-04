@@ -120,14 +120,14 @@
                                                 <div class="col-md-10">
                                                     @if (comNot.Comment.ParentId == 0)
                                                     {
-                                                        @comNot.Comment.CommentAuthor.Nickname @:commented on your article:  @comNot.Comment.Article.Title
+                                                        @comNot.Comment.CommentAuthor.Nickname @:commented on your article:  <a href="@Url.Action("Details","Articles", new { id = comNot.Comment.ArticleId})"> @comNot.Comment.Article.Title </a>
                                                     }
                                                     else
                                                     {
-                                                        @comNot.Comment.CommentAuthor.Nickname @:replied to a comment on your article:  @comNot.Comment.Article.Title
+                                                        @comNot.Comment.CommentAuthor.Nickname @:replied to a comment on your article: <a href="@Url.Action("Details","Articles", new { id = comNot.Comment.ArticleId})"> @comNot.Comment.Article.Title </a>
                                                     }
 
-                                                </div>
+</div>
                                                 <div class="col-md-2 sp-v-align2">
                                                     <a href="@Url.Action("DeleteConfirmed","CommentNotifications", new { id = comNot.Id })" class="text-primary">
                                                         <i class="fas fa-times-circle"></i>
@@ -166,7 +166,7 @@
     <div class="card text-center col-md-12 p-0">
         <div class="card-header bg-primary text-white">
             <div class="col-md-12">
-                <h3>Badges <i class="far fa-id-badge"></i></h3>
+                <h3>Badges <i class="far fa-id-badge"></i>  </h3>
             </div>
         </div>
         <div class="card-body row text-center">
